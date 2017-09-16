@@ -9,21 +9,21 @@ import { Nav, Platform } from 'ionic-angular';
 })
 export class HomePage {
 
-  tableName:String = 'People_table';
+  
+  tableName: String = 'todoitem'; // Testing only
+  item: any = { test: 'Item 1', complete: false }; // Testing only
 
   constructor(public navCtrl: NavController, public azConnectProv: AzureConnectionProvider,public platform:Platform) {
     
   }
-  public connectToAzure(){
+  public connectToAzure() {
     this.platform.ready().then(() => {
       this.azConnectProv.createClientConnection();
-      /* Test, remove later*/
-      var item = { test: 'Item 1', complete: false };
-      this.azConnectProv.insert(item);
     });
-    
-    
   }
-
   
+  public testDbInsert() {
+    this.connectToAzure();
+    this.azConnectProv.insert(this.item,this.tableName);
+  }
 }

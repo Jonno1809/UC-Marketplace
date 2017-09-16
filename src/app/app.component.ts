@@ -15,7 +15,7 @@ export class MyApp {
   rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
-  client: any;
+
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
@@ -33,8 +33,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      
-      // client = WindowsAzure.MobileServiceClient("https://uc-marketplace.azurewebsites.net");
     });
   }
 
