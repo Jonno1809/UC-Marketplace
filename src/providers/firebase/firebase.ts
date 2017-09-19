@@ -11,11 +11,17 @@ import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database
 */
 @Injectable()
 export class FirebaseProvider {
-  users: FirebaseListObservable<any[]>;
+  products: FirebaseListObservable<any[]>;
 
-  constructor(public http: Http, config: any,db: AngularFireDatabase) {
+  constructor(public http: Http, public db: AngularFireDatabase) {
     console.log('Hello FirebaseProvider Provider');
-    this.users = db.list('/users');
+  }
+  
+  getItems() {
+    return this.db.list('/products/');
   }
 
+  addItems(){
+    this.db.list('/products/').push({name:"Item1", owner:"Jonathan Simmons"});
+  }
 }

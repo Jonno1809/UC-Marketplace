@@ -6,10 +6,11 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-
+import { FirebaseTestPage } from '../pages/firebase-test/firebase-test'
+ 
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import {AngularFireDatabaseModule } from 'angularfire2/database' 
+import 'firebase/storage';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -29,21 +30,22 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    FirebaseTestPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    FirebaseTestPage
   ],
   providers: [
     StatusBar,
