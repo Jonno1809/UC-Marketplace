@@ -40,8 +40,15 @@ $colors: (
   light:      #f4f4f4,
   dark:       #222
 );
-
-
+$toolbar-md-title-text-color: #777;
+$toolbar-ios-title-text-color: #777;
+$toolbar-wp-title-text-color: #777;
+$toolbar-ios-title-font-size: 3rem;
+$toolbar-md-title-font-size: 3rem;
+$toolbar-wp-title-font-size: 3rem;
+$text-input-placeholder-color: #020202;
+$text-input-highlight-color-valid:#4B32DB;
+$text-input-highlight-color-invalid:#f53d3d;
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
