@@ -6,16 +6,22 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-
+import {LoginPage} from '../pages/login/login';
+import {SignupPage} from '../pages/signup/signup';
+import {ItemPage} from '../pages/item/item';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AzureConnectionProvider } from '../providers/azure-connection/azure-connection';
+
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    LoginPage,
+    SignupPage,
+    ItemPage
   ],
   imports: [
     BrowserModule,
@@ -26,7 +32,10 @@ import { AzureConnectionProvider } from '../providers/azure-connection/azure-con
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    LoginPage,
+    SignupPage,
+    ItemPage
   ],
   providers: [
     StatusBar,
