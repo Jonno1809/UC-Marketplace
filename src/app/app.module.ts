@@ -6,12 +6,12 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { FirebaseTestPage } from '../pages/firebase-test/firebase-test'
- 
+import {LoginPage} from '../pages/login/login';
+import {SignupPage} from '../pages/signup/signup';
+import {ItemPage} from '../pages/item/item';
 import { AngularFireModule } from 'angularfire2';
 import {AngularFireDatabaseModule } from 'angularfire2/database' 
 import 'firebase/storage';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AzureConnectionProvider } from '../providers/azure-connection/azure-connection';
@@ -31,7 +31,9 @@ export const firebaseConfig = {
     MyApp,
     HomePage,
     ListPage,
-    FirebaseTestPage
+    LoginPage,
+    SignupPage,
+    ItemPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,7 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
+    SignupPage,
     FirebaseTestPage
   ],
   providers: [

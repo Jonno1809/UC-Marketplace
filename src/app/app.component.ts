@@ -5,6 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { LoginPage } from '../pages/login/login';
+import { SignupPage} from '../pages/signup/signup';
+import { ItemPage } from '../pages/item/item';
 import { FirebaseTestPage } from '../pages/firebase-test/firebase-test'
 
 @Component({
@@ -13,7 +16,7 @@ import { FirebaseTestPage } from '../pages/firebase-test/firebase-test'
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = LoginPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -24,7 +27,9 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'Firebase Test', component: FirebaseTestPage }
+      { title: 'Login', component: LoginPage },
+      { title: 'Signup', component: SignupPage },
+      { title: 'Item', component: ItemPage }
     ];
 
   }
