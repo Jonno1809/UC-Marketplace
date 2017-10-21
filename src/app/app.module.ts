@@ -17,9 +17,11 @@ import 'firebase/storage';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Camera } from '@ionic-native/camera';
 
 import { AzureConnectionProvider } from '../providers/azure-connection/azure-connection';
 import { FirebaseProvider } from '../providers/firebase/firebase';
+import { ImageProvider } from '../providers/image/image';
 
 /* CONFIG SETTINGS FOR FIREBASE */
 export const firebaseConfig = {
@@ -62,7 +64,9 @@ export const firebaseConfig = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AzureConnectionProvider,
-    FirebaseProvider
+    FirebaseProvider,
+    Camera,
+    ImageProvider
   ]
 })
 export class AppModule {}
