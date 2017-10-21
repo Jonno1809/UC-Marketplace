@@ -11,6 +11,7 @@ import { FirebaseApp } from 'angularfire2'; // for methods
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+
 @Injectable()
 export class FirebaseProvider {
   products: FirebaseListObservable<any[]>;
@@ -32,24 +33,67 @@ export class FirebaseProvider {
     // this.productImagesRef = storageRef.child('Images/products');
   }
   
+  
   public getAllProducts() {
     return this.db.list('/products/');
   }
   
   public getAllProductsFromUser(userId: string) {
-    return this.db.list('/products/')
+    return this.db.list('/products/');
   }
-
-  public addItem(itemName: string, itemPrice: number, itemDescription: string, ownerID: string) {
-    this.db.list('/products/').push({name: itemName, price: itemPrice, owner: ownerID});
-  }
-
-  getProduct(itemId: string) {
+  
+  /**
+   * Fetches all details of a product
+   * 
+   * @param itemId Id string of the product to get
+   */
+  public getProduct(itemId: string) {
     return this.db.object('/products/' + itemId);
   }
 
   /**
-   * Kept this method private as we don't particularly want someone to return all users
+   * Adds a product to the products database.
+   * 
+   * @param itemName the name of the product
+   * @param itemPrice the price of the product
+   * @param itemDescription the description of the product
+   * @param ownerID the id of the owner of the product
+   */
+  public addProduct(itemName: string, itemPrice: number, itemDescription: string, ownerID: string) {
+    this.db.list('/products/').push({name: itemName, price: itemPrice, description: itemDescription, owner: ownerID});
+  }
+
+  /**
+   * 
+   * @param itemId the Id of the product to delete
+   */
+  public deleteProduct(itemId) {
+    this.db.list('/products/' + itemId).remove();
+  }
+
+  /**
+   * 
+   * @param newName the updated name of the product
+   * @param itemId the id of the product to be updated
+   */
+  public updateProductName(newName: string, itemId: string) {
+    this.db.object('/products/' + itemId).update({name: newName});
+  }
+
+  public updateProductDescription(newDescription: string, itemId: string) {
+    this.db.object('/products/' + itemId).update({description: newDescription});
+  }
+
+  public updateProductImageURL(newImgURL: string, itemId: string) {
+    this.db.object('/products/' + itemId).update({img_url:newImgURL});
+  }
+
+  public updateProductOwner(newOwner: string, itemId: string) {
+    this.db.object('/products/' + itemId).update({owner:newOwner});
+  }
+
+  /**
+   * Fetch all users (NOT TO BE USED)
    */
   private getAllUsers() {
     return this.db.list('/users/');
