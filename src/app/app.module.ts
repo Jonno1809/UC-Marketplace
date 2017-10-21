@@ -6,17 +6,22 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import {LoginPage} from '../pages/login/login';
-import {SignupPage} from '../pages/signup/signup';
-import {ItemPage} from '../pages/item/item';
+import { LoginPage } from '../pages/login/login';
+import { SignupPage } from '../pages/signup/signup';
+import { ItemPage } from '../pages/item/item';
+import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
+
 import { AngularFireModule } from 'angularfire2';
-import {AngularFireDatabaseModule } from 'angularfire2/database' 
+import { AngularFireDatabaseModule } from 'angularfire2/database' 
 import 'firebase/storage';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
 import { AzureConnectionProvider } from '../providers/azure-connection/azure-connection';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 
+/* CONFIG SETTINGS FOR FIREBASE */
 export const firebaseConfig = {
   apiKey: "AIzaSyBE4UGjfIxWCC25H0L1Q9R4-1eHRhLFj9k",
   authDomain: "uc-marketplace.firebaseapp.com",
@@ -33,7 +38,8 @@ export const firebaseConfig = {
     ListPage,
     LoginPage,
     SignupPage,
-    ItemPage
+    ItemPage,
+    FirebaseTestPage
   ],
   imports: [
     BrowserModule,
@@ -47,6 +53,7 @@ export const firebaseConfig = {
     MyApp,
     HomePage,
     SignupPage,
+    LoginPage,
     FirebaseTestPage
   ],
   providers: [
