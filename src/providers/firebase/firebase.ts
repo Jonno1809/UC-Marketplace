@@ -32,11 +32,11 @@ export class FirebaseProvider {
     // this.productImagesRef = storageRef.child('Images/products');
   }
   
-  public getAllItems() {
+  public getAllProducts() {
     return this.db.list('/products/');
   }
   
-  public getAllItemsFromUser(userId: string) {
+  public getAllProductsFromUser(userId: string) {
     return this.db.list('/products/')
   }
 
@@ -44,7 +44,7 @@ export class FirebaseProvider {
     this.db.list('/products/').push({name: itemName, price: itemPrice, owner: ownerID});
   }
 
-  getItem(itemId: string) {
+  getProduct(itemId: string) {
     return this.db.object('/products/' + itemId);
   }
 

@@ -18,10 +18,11 @@ import { FirebaseProvider } from '../../providers/firebase/firebase';
 })
 export class FirebaseTestPage {
 
-  product: FirebaseObjectObservable<any>;
+  product: FirebaseObjectObservable<any>; // Single item
+  products: FirebaseListObservable<any[]>; // List of items
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider) {
-    // this.getItem('-KuObmXeYx0-zxj1pbVm');
+    // this.getProduct('-KuObmXeYx0-zxj1pbVm');
 
   }
 
@@ -33,14 +34,26 @@ export class FirebaseTestPage {
   // Runs when the page is about to enter and become the active page, see https://ionicframework.com/docs/api/navigation/NavController/ (there's heaps of these!)
   // Place anything you want to run when the page loads here (you can probably also put it in the constructor) 
   ionViewWillEnter() {
-    this.getItem('-KuObmXeYx0-zxj1pbVm');
+    this.getProduct('-KuObmXeYx0-zxj1pbVm');
+    this.getAllProducts();
   }
 
   /**
    * Fetches a product and stores it for use.
-   * @param itemId the id of the item
+   * @param itemId the id string of the item
    */
-  getItem(itemId: string) {
-    return this.product = this.fbProvider.getItem(itemId);
+  getProduct(itemId: string) {
+    return this.product = this.fbProvider.getProduct(itemId);
+  }
+
+  /**
+   * Fetches all products and stores them for use
+   */
+  getAllProducts() {
+    return this.products = this.fbProvider.getAllProducts();
+  }
+
+  deleteProduct(itemId) {
+    this.fbProvider.deleteProduct(itemId);
   }
 }

@@ -15,7 +15,20 @@
 
 
 <ion-content padding>
-  <button ion-button (click) = "getItem('-KuOh05_CRwaxf-LnIjY')" >Get product with id of -KuOh05_CRwaxf-LnIjY</button> <!--Note that the id here is different to the one in the .ts file-->
-  <h1 ng-if="product!=null">{{ (product | async | json) }}</h1> <!--JSON seems to always display 'null' for some reason, doesn't really matter-->
-  <h1 ng-if="product!=null">{{ (product | async)?.owner }}</h1>
+  <button ion-button (click) = "getProduct('-KuOh05_CRwaxf-LnIjY')" >getProduct('-KuOh05_CRwaxf-LnIjY')</button> <!--Note that the id here is different to the one in the .ts file-->
+  <button ion-button (click) = "getProduct('-KuObmXeYx0-zxj1pbVm')" >getProduct('-KuObmXeYx0-zxj1pbVm')</button>
+
+  <div id="single-product-example" *ngIf="product!=null"><!--Show only if there is a product-->
+    <h1>{{ (product | async | json) }}</h1> <!--JSON seems to always display 'null' for some reason, doesn't really matter-->
+    <h1>{{ (product | async)?.owner }}</h1>
+  </div>
+
+  <div id="product-list-example" *ngIf="product!=null">
+    <p *ngFor="let item of products | async">
+        Item name: {{ item.name }}<br>
+        Item owner: {{ item.owner }}<br>
+        Item description: {{ item.description }}<br>
+        Item image url: {{ item.img_url }}<br>
+    </p>
+  </div>
 </ion-content>
