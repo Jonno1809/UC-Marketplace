@@ -8,6 +8,8 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage} from '../pages/signup/signup';
 import { ItemPage } from '../pages/item/item';
+import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -27,7 +29,8 @@ export class MyApp {
       { title: 'List', component: ListPage },
       { title: 'Login', component: LoginPage },
       { title: 'Signup', component: SignupPage },
-      { title: 'Item', component: ItemPage }
+      { title: 'Item', component: ItemPage },
+      { title: 'Firebase Test', component: FirebaseTestPage }
     ];
 
   }
