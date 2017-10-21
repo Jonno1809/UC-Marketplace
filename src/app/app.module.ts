@@ -54,6 +54,7 @@ export const firebaseConfig = {
     HomePage,
     SignupPage,
     LoginPage,
+    ItemPage,
     FirebaseTestPage
   ],
   providers: [
