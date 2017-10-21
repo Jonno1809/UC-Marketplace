@@ -21,7 +21,7 @@ export class FirebaseTestPage {
   product: FirebaseObjectObservable<any>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider) {
-    this.getItem('-KuObmXeYx0-zxj1pbVm');
+    // this.getItem('-KuObmXeYx0-zxj1pbVm');
 
   }
 
@@ -37,7 +37,7 @@ export class FirebaseTestPage {
   }
 
   /**
-   * Fetches a product and stores it temporarily for use.
+   * Fetches a product and stores it for use.
    * @param itemId the id of the item
    */
   getItem(itemId: string) {
