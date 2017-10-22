@@ -21,7 +21,7 @@ export class ImageProvider {
   public openPhotoGallery(): void {
     let cameraOptions = {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
       mediaType: this.camera.MediaType.PICTURE,
       quality: 100,
       targetWidth: 1920,
@@ -30,7 +30,7 @@ export class ImageProvider {
     }
 
     this.camera.getPicture(cameraOptions)
-      .then(data_url => this.imageSrc = data_url,
+      .then(file_uri => this.imageSrc = file_uri,
       err => console.log(err));
   }
 

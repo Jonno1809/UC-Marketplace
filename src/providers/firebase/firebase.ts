@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import * as firebase from 'firebase/app'; // for typings
 import { FirebaseApp } from 'angularfire2'; // for methods
+import * as firebase from 'firebase/app';
+import 'firebase/storage';
 
 /*
   Generated class for the FirebaseProvider provider.
@@ -14,18 +15,20 @@ import { FirebaseApp } from 'angularfire2'; // for methods
 
 @Injectable()
 export class FirebaseProvider {
-  products: FirebaseListObservable<any[]>;
-  users: FirebaseListObservable<any[]>;
+  private products: FirebaseListObservable<any[]>;
+  private users: FirebaseListObservable<any[]>;
+  
+  private user: FirebaseObjectObservable<any[]>;
+  private product: FirebaseObjectObservable<any[]>;
 
-  user: FirebaseObjectObservable<any[]>;
-  product: FirebaseObjectObservable<any[]>;
+  private productStorageRef = firebase.storage().ref('/images/products/');
+  private downloadString: string;
 
   constructor(public http: Http, 
-      public db: AngularFireDatabase,
-      public fbe: FirebaseApp)
-      // public storage:any, 
-      // public storageRef:any, 
-      // public productImagesRef:any) 
+    public db: AngularFireDatabase
+    // public storageRef:any, 
+    // public productImagesRef:any)
+  ) 
   {
     console.log('Hello FirebaseProvider Provider');
     // this.storage = firebase.storage();
@@ -90,6 +93,46 @@ export class FirebaseProvider {
 
   public updateProductOwner(newOwner: string, itemId: string) {
     this.db.object('/products/' + itemId).update({owner:newOwner});
+  }
+
+  public getImageDownloadURL() {
+    return this.downloadString;
+  }
+
+  public uploadImage(imageString: string) {
+    let uploadTask = this.productStorageRef.child('-product-'+new Date().getTime().toString()).putString(imageString, 'base64', { contentType: 'image/jpeg' });
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      function(snapshot) {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        let progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (uploadTask.snapshot.state) {
+          case firebase.storage.TaskState.PAUSED: // or 'paused'
+            console.log('Upload is paused');
+            break;
+          case firebase.storage.TaskState.RUNNING: // or 'running'
+            console.log('Upload is running');
+            break;
+        }
+      }, function(error) {
+    
+      // A full list of error codes is available at
+      // https://firebase.google.com/docs/storage/web/handle-errors
+      switch (error.stack) {
+        case 'storage/unauthorized':
+          // User doesn't have permission to access the object
+          break;
+        case 'storage/canceled':
+          // User canceled the upload
+          break;
+        case 'storage/unknown':
+          // Unknown error occurred, inspect error.serverResponse
+          break;
+      }
+    }, function() {
+      // Upload completed successfully, now we can get the download URL
+       this.downloadString = uploadTask.snapshot.downloadURL;
+    });
   }
 
   /**
