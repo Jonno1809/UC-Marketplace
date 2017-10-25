@@ -126,8 +126,13 @@
             "browser"
         ]
 <<<<<<< HEAD
+<<<<<<< HEAD
     }
   }
+=======
+    },
+    "optionalDependencies": {}
+>>>>>>> 4e72460... work for fix
 =======
     },
     "optionalDependencies": {}

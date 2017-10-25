@@ -13,7 +13,11 @@ import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
 
 import { AngularFireModule } from 'angularfire2';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated' 
+=======
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
+>>>>>>> 4e72460... work for fix
 =======
 import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 >>>>>>> 4e72460... work for fix
