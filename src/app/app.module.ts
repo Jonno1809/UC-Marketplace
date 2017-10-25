@@ -14,7 +14,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AzureConnectionProvider } from '../providers/azure-connection/azure-connection';
 
-
 @NgModule({
   declarations: [
     MyApp,
@@ -46,5 +45,6 @@ import { AzureConnectionProvider } from '../providers/azure-connection/azure-con
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AzureConnectionProvider
   ]
+  
 })
 export class AppModule {}
