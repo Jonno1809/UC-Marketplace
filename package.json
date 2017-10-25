@@ -61,6 +61,8 @@
       "ionic-plugin-keyboard": {},
       "cordova-plugin-camera": {},
       "cordova-plugin-file": {}
+    "firebase": "^4.3.1",
+    "angularfire2": "^4.0.0-rc.2",
     },
     "platforms": [
       "browser",

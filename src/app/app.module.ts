@@ -6,13 +6,31 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import {LoginPage} from '../pages/login/login';
-import {SignupPage} from '../pages/signup/signup';
-import {ItemPage} from '../pages/item/item';
 import { AddItemPage } from '../pages/add-item/add-item';
+import { LoginPage } from '../pages/login/login';
+import { SignupPage } from '../pages/signup/signup';
+import { ItemPage } from '../pages/item/item';
+import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database' 
+import 'firebase/storage';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
 import { AzureConnectionProvider } from '../providers/azure-connection/azure-connection';
+import { FirebaseProvider } from '../providers/firebase/firebase';
+
+/* CONFIG SETTINGS FOR FIREBASE */
+export const firebaseConfig = {
+  apiKey: "AIzaSyBE4UGjfIxWCC25H0L1Q9R4-1eHRhLFj9k",
+  authDomain: "uc-marketplace.firebaseapp.com",
+  databaseURL: "https://uc-marketplace.firebaseio.com",
+  projectId: "uc-marketplace",
+  storageBucket: "uc-marketplace.appspot.com",
+  messagingSenderId: "559553505676"
+};
 
 @NgModule({
   declarations: [
@@ -21,29 +39,33 @@ import { AzureConnectionProvider } from '../providers/azure-connection/azure-con
     ListPage,
     LoginPage,
     SignupPage,
-    ItemPage,
     AddItemPage
+    ItemPage,
+    FirebaseTestPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
-    LoginPage,
     SignupPage,
+    LoginPage,
     ItemPage,
+    FirebaseTestPage
     AddItemPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AzureConnectionProvider
+    AzureConnectionProvider,
+    FirebaseProvider
   ]
   
 })
