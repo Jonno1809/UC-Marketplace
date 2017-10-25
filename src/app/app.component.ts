@@ -8,13 +8,14 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage} from '../pages/signup/signup';
 import { ItemPage } from '../pages/item/item';
+import { AddItemPage } from '../pages/add-item/add-item';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = AddItemPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -27,7 +28,8 @@ export class MyApp {
       { title: 'List', component: ListPage },
       { title: 'Login', component: LoginPage },
       { title: 'Signup', component: SignupPage },
-      { title: 'Item', component: ItemPage }
+      { title: 'Item', component: ItemPage },
+      { title: 'Add Item', component: AddItemPage }
     ];
 
   }

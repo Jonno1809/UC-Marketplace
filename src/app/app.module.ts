@@ -9,6 +9,7 @@ import { ListPage } from '../pages/list/list';
 import {LoginPage} from '../pages/login/login';
 import {SignupPage} from '../pages/signup/signup';
 import {ItemPage} from '../pages/item/item';
+import { AddItemPage } from '../pages/add-item/add-item';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AzureConnectionProvider } from '../providers/azure-connection/azure-connection';
@@ -21,7 +22,8 @@ import { AzureConnectionProvider } from '../providers/azure-connection/azure-con
     ListPage,
     LoginPage,
     SignupPage,
-    ItemPage
+    ItemPage,
+    AddItemPage
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { AzureConnectionProvider } from '../providers/azure-connection/azure-con
     ListPage,
     LoginPage,
     SignupPage,
-    ItemPage
+    ItemPage,
+    AddItemPage
   ],
   providers: [
     StatusBar,
