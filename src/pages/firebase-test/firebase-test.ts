@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
+import { ImageProvider } from '../../providers/image/image';
 
 /**
  * Generated class for the FirebaseTestPage page.
@@ -21,7 +22,8 @@ export class FirebaseTestPage {
   product: FirebaseObjectObservable<any>; // Single item
   products: FirebaseListObservable<any[]>; // List of items
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider) {
+  imgURL: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider, public imgProvider: ImageProvider) {
     // this.getProduct('-KuObmXeYx0-zxj1pbVm');
 
   }
@@ -53,7 +55,21 @@ export class FirebaseTestPage {
     return this.products = this.fbProvider.getAllProducts();
   }
 
-  deleteProduct(itemId) {
+  deleteProduct(itemId: string) {
     this.fbProvider.deleteProduct(itemId);
+  }
+
+  openPhotoGallery() {
+    this.imgProvider.openPhotoGallery();
+  }
+  
+  uploadImage() {
+    let img = this.imgProvider.getImageSrc();
+    this.fbProvider.uploadImage(img);
+    this.imgURL = this.fbProvider.getImageDownloadURL();
+  }
+
+  getImage() {
+    this.imgURL = this.fbProvider.getImageDownloadURL();
   }
 }

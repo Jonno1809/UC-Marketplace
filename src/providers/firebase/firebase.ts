@@ -6,7 +6,7 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import * as firebase from 'firebase/app'; // for typings
 
 import { FirebaseApp } from 'angularfire2'; // for methods
-import * as firebase from 'firebase/app';
+
 import 'firebase/storage';
 
 /*

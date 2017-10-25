@@ -12,8 +12,13 @@ import { ItemPage } from '../pages/item/item';
 import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
 
 import { AngularFireModule } from 'angularfire2';
+<<<<<<< HEAD
 import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated' 
+=======
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
+>>>>>>> 4e72460... work for fix
 import 'firebase/storage';
+import * as firebase from 'firebase/app';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -48,7 +53,7 @@ export const firebaseConfig = {
     IonicModule.forRoot(MyApp),
     HttpModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
