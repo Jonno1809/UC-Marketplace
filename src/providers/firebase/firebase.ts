@@ -1,17 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-<<<<<<< HEAD
-
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
-import * as firebase from 'firebase/app'; // for typings
-
-import { FirebaseApp } from 'angularfire2'; // for methods
-
-=======
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
->>>>>>> 4e72460... work for fix
 import 'firebase/storage';
 
 /*
@@ -23,11 +14,6 @@ import 'firebase/storage';
 
 @Injectable()
 export class FirebaseProvider {
-  private products: FirebaseListObservable<any[]>;
-  private users: FirebaseListObservable<any[]>;
-  
-  private user: FirebaseObjectObservable<any[]>;
-  private product: FirebaseObjectObservable<any[]>;
 
   private productStorageRef = firebase.storage().ref('/images/products/');
   private downloadString: string;
