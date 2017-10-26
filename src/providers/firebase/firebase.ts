@@ -4,7 +4,6 @@ import 'rxjs/add/operator/map';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import 'firebase/storage';
-
 /*
   Generated class for the FirebaseProvider provider.
 
@@ -25,6 +24,19 @@ export class FirebaseProvider {
   ) 
   {
     console.log('Hello FirebaseProvider Provider');
+    
+    firebase.database.enableLogging(function(message) {
+      console.log("[FIREBASE]", message);
+    });
+
+    var connectedRef = firebase.database().ref(".info/connected");
+    connectedRef.on("value", function(snap) {
+      if (snap.val() === true) {
+        console.log("[FB CONNECTION VERIFICATION] connected");
+      } else {
+        console.log("[FB CONNECTION VERIFICATION] not connected");
+      }
+    });
     // this.storage = firebase.storage();
     // this.storageRef = storage.ref();
     // this.productImagesRef = storageRef.child('Images/products');
@@ -32,6 +44,14 @@ export class FirebaseProvider {
   
   
   public getAllProducts() {
+    var connectedRef = firebase.database().ref(".info/connected");
+    connectedRef.on("value", function(snap) {
+      if (snap.val() === true) {
+        console.log("[FB CONNECTION VERIFICATION] connected");
+      } else {
+        console.log("[FB CONNECTION VERIFICATION] not connected");
+      }
+    });
     return this.db.list('/products/');
   }
   
