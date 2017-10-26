@@ -132,17 +132,17 @@ export class FirebaseProvider {
   /**
    * Fetch all users (NOT TO BE USED)
    */
-  private getAllUsers() {
-    return this.db.list('/users/');
-  }
+  // private getAllUsers() {
+  //   return this.db.list('/users/');
+  // }
 
-  private getUser(userId: string) {
-    return this.user = this.db.object('/users/$key');
-  }
+  // private getUser(userId: string) {
+  //   return this.user = this.db.object('/users/$key');
+  // }
 
-  public addUser(firstName: string, lastName: string, email: string) {
-    this.db.list('/users/').push({FirstName: firstName, LastName: lastName, Email: email})
-  }
+  // public addUser(firstName: string, lastName: string, email: string) {
+  //   this.db.list('/users/').push({FirstName: firstName, LastName: lastName, Email: email})
+  // }
 
   // public uploadImage(imageString) {
 
