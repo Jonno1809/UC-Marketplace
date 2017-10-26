@@ -31,7 +31,7 @@ export class MyApp {
       { title: 'Login', component: LoginPage },
       { title: 'Signup', component: SignupPage },
       { title: 'Item', component: ItemPage },
-      { title: 'Firebase Test', component: FirebaseTestPage }
+      { title: 'Firebase Test', component: FirebaseTestPage },
       { title: 'Add Item', component: AddItemPage }
     ];
 

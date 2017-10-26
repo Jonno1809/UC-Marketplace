@@ -13,7 +13,7 @@ import { ItemPage } from '../pages/item/item';
 import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
 
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database' 
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import 'firebase/storage';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -39,7 +39,7 @@ export const firebaseConfig = {
     ListPage,
     LoginPage,
     SignupPage,
-    AddItemPage
+    AddItemPage,
     ItemPage,
     FirebaseTestPage
   ],
@@ -57,7 +57,7 @@ export const firebaseConfig = {
     SignupPage,
     LoginPage,
     ItemPage,
-    FirebaseTestPage
+    FirebaseTestPage,
     AddItemPage
   ],
   providers: [
