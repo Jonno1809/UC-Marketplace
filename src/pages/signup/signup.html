@@ -5,50 +5,56 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar color="primary">
-    <ion-title>Sign Up</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content >
-    <div class="main">
-        
-        <div class="top">
-            <div class="logo">
-              <img src="assets/images/marketplace icon.png" width = "200px" alt="">
-              <img src="assets/images/title.png" width = "250px" alt="">
-            </div></div>
-          <ion-list >
-              <ion-item class="listcolor" >
-                  <ion-label floating>Last name </ion-label>
-                  <ion-input></ion-input>
-              </ion-item>
-              <ion-item class = "listcolor">
-                <ion-label floating>Email Address</ion-label>
-                <ion-input type="text" [(ngModel)]="user.email"></ion-input>
-              </ion-item>
+    
+      <ion-navbar color="primary">
+        <ion-title>Sign Up</ion-title>
+      </ion-navbar>
+    
+    </ion-header>
+    
+    
+    <ion-content >
+        <div class="main">
             
-              <ion-item class = "listcolor">
-                <ion-label floating>Password</ion-label>
-                <ion-input type="password" [(ngModel)]="user.password"></ion-input>
-              </ion-item>
-              <ion-item class="listcolor" >
-                  <ion-label floating>Student ID </ion-label>
-                  <ion-input></ion-input>
-              </ion-item>
-              <ion-item class="listcolor" >
-                  <ion-label floating>Address</ion-label>
-                  <ion-input></ion-input>
-              </ion-item>
-              <ion-item class="listcolor" >
-                  <ion-label floating>Phone number </ion-label>
-                  <ion-input></ion-input>
-              </ion-item>
-                  </ion-list>
-                  <button ion-button (click)="signupTapped(user)" full>Sign up</button>
-        
-    </div>
-</ion-content>
+            <div class="top">
+                <div class="logo">
+                  <img src="assets/images/marketplace icon.png" width = "200px" alt="">
+                  <img src="assets/images/title.png" width = "250px" alt="">
+                </div></div>
+              <ion-list >
+                  
+                  <ion-item class = "listcolor">
+                    <ion-label floating>Email Address</ion-label>
+                    <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+                  </ion-item>
+                  <ion-item class = "listcolor">
+                    <ion-label floating>Password</ion-label>
+                    <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+                  </ion-item>
+    
+                  <ion-item class="listcolor" >
+                    <ion-label floating>Last name </ion-label>
+                    <ion-input type="text" [(ngModel)]="user.lastname"></ion-input>
+                </ion-item>
+                <ion-item class="listcolor" >
+                    <ion-label floating>First name </ion-label>
+                    <ion-input type="text" [(ngModel)]="user.firstname"></ion-input>
+                </ion-item>
+                  <ion-item class="listcolor" >
+                      <ion-label  floating>Student ID </ion-label>
+                      <ion-input type="number" [(ngModel)]="user.studentid" ></ion-input>
+                  </ion-item>
+                  <ion-item class="listcolor" >
+                      <ion-label floating>Address</ion-label>
+                      <ion-input type="text" [(ngModel)]="user.address" ></ion-input>
+                  </ion-item>
+                  <ion-item class="listcolor" >
+                      <ion-label  floating>Phone number </ion-label>
+                      <ion-input type="text" [(ngModel)]="user.phoneno"></ion-input>
+                  </ion-item>
+                      </ion-list>
+                      <button ion-button (click)="signupTapped(user)" (click)= "addUser(user)" full>Sign up</button>
+            
+        </div>
+    </ion-content>
+    
