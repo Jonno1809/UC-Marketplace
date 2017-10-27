@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {ItemPage} from '../item/item'
+import {ItemPage} from '../item/item';
+import {User} from '../../models/user';
+import {AngularFireAuth} from "angularfire2/auth";
 /**
  * Generated class for the SignupPage page.
  *
@@ -12,17 +14,25 @@ import {ItemPage} from '../item/item'
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
+  providers:[AngularFireAuth]
 })
 export class SignupPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+user = {}as User;
+  constructor(private afAuth:AngularFireAuth,
+    public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
   }
-  signupTapped(event) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ItemPage   );}
+  async signupTapped(user : User) {
+    try{
+    const result =this.afAuth.auth.createUserWithEmailAndPassword(user.email,user.password);
+    console.log(result);
+    }
+    catch(e){
 
-}
+      console.error(e);
+      }}    }
+
+
