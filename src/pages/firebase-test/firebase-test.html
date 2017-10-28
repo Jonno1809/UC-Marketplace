@@ -19,7 +19,10 @@
   <button ion-button (click) = "getProduct('-KuObmXeYx0-zxj1pbVm')" >getProduct('-KuObmXeYx0-zxj1pbVm')</button>
   <button ion-button (click) = "openPhotoGallery()">openPhotoGallery()</button>
   <button ion-button (click) = "uploadImage()">uploadImage()</button>
-  <button ion-button (click) = "updateProductImageUrl('-product-1508636165485','-KuOh05_CRwaxf-LnIjY',1)">updateProductImageUrl('-product-1508636165485','-KuOh05_CRwaxf-LnIjY',1)</button>
+  <button ion-button (click) = "updateProductImageUrl('https://firebasestorage.googleapis.com/v0/b/uc-marketplace.appspot.com/o/images%2Fproducts%2F-product-1508637771991?alt=media&token=a86cfe50-7e9a-4080-99f5-a5b6dd17c710',
+  '-KuOh05_CRwaxf-LnIjY',1)">updateProductImageUrl(url1,'-KuOh05_CRwaxf-LnIjY',1)</button>
+  <button ion-button (click) = "updateProductImageUrl('https://firebasestorage.googleapis.com/v0/b/uc-marketplace.appspot.com/o/images%2Fproducts%2F-product-1508636286309?alt=media&token=56bc81a7-ddf2-4479-8a0a-458015f34a69',
+  '-KuOh05_CRwaxf-LnIjY',1)">updateProductImageUrl(url2,'-KuOh05_CRwaxf-LnIjY',1)</button>
 
   <div id="single-product-example" *ngIf="product!=null"><!--Show only if there is a product-->
     <h1>{{ (product | async | json) }}</h1> <!--JSON seems to always display 'null' for some reason, doesn't really matter-->
@@ -38,12 +41,12 @@
 
   <div id="product-list-example" *ngIf="products!=null">
       <h1>All products:</h1>
-    <p *ngFor="let item of products | async">
+    <div *ngFor="let item of products | async">
         Item name: {{ item.name }}<br>
         Item owner: {{ item.owner }}<br>
         Item description: {{ item.description }}<br>
-        Item image url: {{ ((item.images)?.imgURL1)?.imgURL }}<br>
-    </p>
-    <img [src] = {{((item.images)?.imgURL1)?.imgURL}}>
+        Item image url: {{ ((item.images)?.image1)?.URL }}<br>
+        <img [src]="((item.images)?.image1)?.URL">
+    </div>
   </div>
 </ion-content>

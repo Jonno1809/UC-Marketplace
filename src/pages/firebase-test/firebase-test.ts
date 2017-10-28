@@ -19,10 +19,11 @@ import { ImageProvider } from '../../providers/image/image';
 })
 export class FirebaseTestPage {
 
-  product: FirebaseObjectObservable<any>; // Single item
-  products: FirebaseListObservable<any[]>; // List of items
+  private product: FirebaseObjectObservable<any>; // Single item
+  private products: FirebaseListObservable<any[]>; // List of items
 
-  productsByUser: FirebaseListObservable<any[]>;
+  private productsByUser: FirebaseListObservable<any[]>;
+  private productImages: FirebaseListObservable<any[]>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider, public imgProvider: ImageProvider) {
     // this.getProduct('-KuObmXeYx0-zxj1pbVm');
@@ -39,6 +40,7 @@ export class FirebaseTestPage {
     this.getProduct('-KuObmXeYx0-zxj1pbVm');
     this.getAllProducts();
     this.getProductsByUser('Tim Allen');
+    this.getProductImages('-KuOh05_CRwaxf-LnIjY');
   }
 
   /**
@@ -70,10 +72,14 @@ export class FirebaseTestPage {
   }
 
   updateProductImageUrl(newImgURL: string, itemId: string, imgNum: number) {
-    this.fbProvider.updateProductImageURL(newImgURL, itemId, 2);
+    this.fbProvider.updateProductImageURL(newImgURL, itemId, imgNum);
   }
 
   getProductsByUser(userId: string){
     return this.productsByUser = this.fbProvider.getAllProductsFromUser(userId);
+  }
+
+  getProductImages(productId: string) {
+    return this.productImages = this.fbProvider.getProductImageURLs(productId);
   }
 }
