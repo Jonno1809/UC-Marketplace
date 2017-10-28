@@ -10,16 +10,21 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { ItemPage } from '../pages/item/item';
 import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
+import {LogindetailPage} from '../pages/logindetail/logindetail';
 
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated' 
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
+
 import 'firebase/storage';
+import * as firebase from 'firebase/app';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {LogindetailPage} from '../pages/logindetail/logindetail';
+import { Camera } from '@ionic-native/camera';
+
 import { AzureConnectionProvider } from '../providers/azure-connection/azure-connection';
 import { FirebaseProvider } from '../providers/firebase/firebase';
+import { ImageProvider } from '../providers/image/image';
 
 
 /* CONFIG SETTINGS FOR FIREBASE */
@@ -65,7 +70,9 @@ export const firebaseConfig = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AzureConnectionProvider,
-    FirebaseProvider
+    FirebaseProvider,
+    Camera,
+    ImageProvider
   ]
 })
 export class AppModule {}

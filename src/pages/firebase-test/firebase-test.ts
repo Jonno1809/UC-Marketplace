@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
+import { ImageProvider } from '../../providers/image/image';
 
 /**
  * Generated class for the FirebaseTestPage page.
@@ -18,12 +19,16 @@ import { FirebaseProvider } from '../../providers/firebase/firebase';
 })
 export class FirebaseTestPage {
 
-  product: FirebaseObjectObservable<any>; // Single item
-  products: FirebaseListObservable<any[]>; // List of items
+  private product: FirebaseObjectObservable<any>; // Single item
+  private products: FirebaseListObservable<any[]>; // List of items
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider) {
+  private productsByUser: FirebaseListObservable<any[]>;
+  private productImages: FirebaseListObservable<any[]>;
+
+  private imagesForUpload: number = 0;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider, public imgProvider: ImageProvider) {
     // this.getProduct('-KuObmXeYx0-zxj1pbVm');
-
   }
 
   //Runs when the view has loaded, see https://ionicframework.com/docs/api/navigation/NavController/
@@ -36,6 +41,8 @@ export class FirebaseTestPage {
   ionViewWillEnter() {
     this.getProduct('-KuObmXeYx0-zxj1pbVm');
     this.getAllProducts();
+    this.getProductsByUser('Tim Allen');
+    this.getProductImages('-KuOh05_CRwaxf-LnIjY');
   }
 
   /**
@@ -53,7 +60,34 @@ export class FirebaseTestPage {
     return this.products = this.fbProvider.getAllProducts();
   }
 
-  deleteProduct(itemId) {
+  deleteProduct(itemId: string) {
     this.fbProvider.deleteProduct(itemId);
+  }
+
+  openPhotoGallery() {
+    this.imgProvider.openPhotoGallery();
+    this.imagesForUpload = this.imgProvider.getNumImages();
+  }
+  
+  uploadImages() {
+    let imgs = this.imgProvider.getImagesForUpload();
+
+    for (let i = 0; i < imgs.length; i++) {
+      this.fbProvider.uploadImage(imgs[i]);
+    }
+    this.imagesForUpload = 0;
+  }
+
+  updateProductImageUrl(newImgURL: string, itemId: string, imgNum: number) {
+    this.fbProvider.updateProductImageURL(newImgURL, itemId, imgNum);
+  }
+
+  getProductsByUser(userId: string){
+    return this.productsByUser = this.fbProvider.getAllProductsFromUser(userId);
+  }
+
+  // Could be useful for when putting all images in an <ion-slides> or something
+  getProductImages(productId: string) {
+    return this.productImages = this.fbProvider.getProductImageURLs(productId);
   }
 }
