@@ -51,7 +51,7 @@ export class FirebaseProvider {
   }
   
   public getAllProductsFromUser(userId: string) {
-    return this.db.list('/products/', {query: {orderByChild:'name', equalTo: 'owner:' + userId}});
+    return this.db.list('/products/', {query: {orderByChild:'owner', equalTo: userId}});
   }
   
   /**
@@ -72,7 +72,10 @@ export class FirebaseProvider {
    * @param ownerID the id of the owner of the product
    */
   public addProduct(itemName: string, itemPrice: number, itemDescription: string, ownerID: string) {
-    this.db.list('/products/').push({name: itemName, price: itemPrice, description: itemDescription, owner: ownerID});
+    this.db.list('/products/').push({name: itemName,
+      price: itemPrice,
+      description: itemDescription,
+      owner: ownerID});
   }
 
   /**
@@ -96,9 +99,9 @@ export class FirebaseProvider {
     this.db.object('/products/' + itemId).update({description: newDescription});
   }
 
-  public updateProductImageURL(newImgURL: string, itemId: string, imgNumber: number) {
-    let imgNum = 'imgURL' + imgNumber;
-    this.db.list('/products/' + itemId + '/images/').update(imgNum, {imgURL:newImgURL});
+  public updateProductImageURL(newImgURL: string, itemId: string, imgNum: number) {
+    let imgNumString = 'image' + imgNum;
+    this.db.list('/products/' + itemId + '/images/').update(imgNumString, {URL: newImgURL});
   }
 
   public removeProductImageURL(itemId: string, imgNumber: number) {
@@ -114,7 +117,7 @@ export class FirebaseProvider {
   }
 
   public updateProductOwner(newOwnerId: string, itemId: string) {
-    this.db.object('/products/' + itemId).update({ownerId:newOwnerId});
+    this.db.object('/products/' + itemId).update({ownerId: newOwnerId});
   }
 
   // Might update this so that each user has their own folder of images
