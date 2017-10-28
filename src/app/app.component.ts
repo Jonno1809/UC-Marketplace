@@ -9,6 +9,7 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage} from '../pages/signup/signup';
 import { ItemPage } from '../pages/item/item';
 import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
+import {LogindetailPage} from '../pages/logindetail/logindetail';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,7 +17,7 @@ import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = LogindetailPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -30,6 +31,7 @@ export class MyApp {
       { title: 'Login', component: LoginPage },
       { title: 'Signup', component: SignupPage },
       { title: 'Item', component: ItemPage },
+      { title: 'LogindetailPage', component: ItemPage },
       { title: 'Firebase Test', component: FirebaseTestPage }
     ];
 
