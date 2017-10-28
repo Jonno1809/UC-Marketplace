@@ -63,6 +63,10 @@ export class FirebaseProvider {
     return this.db.object('/products/' + itemId);
   }
 
+  public getProductImageURLs(productId: string) {
+    return this.db.list('/products/'+ productId + '/images/');
+  }
+
   /**
    * Adds a product to the products database.
    * 
