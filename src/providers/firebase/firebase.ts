@@ -104,8 +104,8 @@ export class FirebaseProvider {
   }
 
   public updateProductImageURL(newImgURL: string, itemId: string, imgNum: number) {
-    let imgNumString = 'image' + imgNum;
-    this.db.list('/products/' + itemId + '/images/').update(imgNumString, {URL: newImgURL});
+    let imgNumString = 'imageURL' + imgNum;
+    this.db.object('/products/' + itemId + '/images/').update({[imgNumString]: newImgURL});
   }
 
   public removeProductImageURL(itemId: string, imgNumber: number) {

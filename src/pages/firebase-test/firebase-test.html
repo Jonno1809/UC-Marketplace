@@ -13,7 +13,6 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
   <button ion-button (click) = "getProduct('-KuOh05_CRwaxf-LnIjY')" >getProduct('-KuOh05_CRwaxf-LnIjY')</button> <!--Note that the id here is different to the one in the .ts file-->
   <button ion-button (click) = "getProduct('-KuObmXeYx0-zxj1pbVm')" >getProduct('-KuObmXeYx0-zxj1pbVm')</button>
@@ -45,8 +44,8 @@
         Item name: {{ item.name }}<br>
         Item owner: {{ item.owner }}<br>
         Item description: {{ item.description }}<br>
-        Item image url: {{ ((item.images)?.image1)?.URL }}<br>
-        <img [src]="((item.images)?.image1)?.URL">
+        Item image url: {{ (item.images)?.imageURL1 }}<br>
+        <img [src]="(item.images)?.imageURL1">
     </div>
   </div>
 </ion-content>
