@@ -17,9 +17,10 @@ import 'firebase/storage';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import {LogindetailPage} from '../pages/logindetail/logindetail';
 import { AzureConnectionProvider } from '../providers/azure-connection/azure-connection';
 import { FirebaseProvider } from '../providers/firebase/firebase';
+
 
 /* CONFIG SETTINGS FOR FIREBASE */
 export const firebaseConfig = {
@@ -39,7 +40,8 @@ export const firebaseConfig = {
     LoginPage,
     SignupPage,
     ItemPage,
-    FirebaseTestPage
+    FirebaseTestPage,
+    LogindetailPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,8 @@ export const firebaseConfig = {
     SignupPage,
     LoginPage,
     ItemPage,
-    FirebaseTestPage
+    FirebaseTestPage,
+    LogindetailPage
   ],
   providers: [
     StatusBar,
