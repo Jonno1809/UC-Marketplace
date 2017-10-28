@@ -16,7 +16,6 @@ import 'firebase/storage';
 export class FirebaseProvider {
 
   private imageProductStorageRef = firebase.storage().ref('/images/products/');
-  private imageUrl: string;
 
   constructor(public http: Http, public db: AngularFireDatabase) {
     console.log('Hello FirebaseProvider Provider');
@@ -33,6 +32,7 @@ export class FirebaseProvider {
         console.log("[FB CONNECTION VERIFICATION] not connected");
       }
     });
+    
     // this.storage = firebase.storage();
     // this.storageRef = storage.ref();
     // this.productImagesRef = storageRef.child('Images/products');
@@ -51,7 +51,7 @@ export class FirebaseProvider {
   }
   
   public getAllProductsFromUser(userId: string) {
-    return this.db.list('/products/');
+    return this.db.list('/products/', {query: {orderByChild:'name', equalTo: 'owner:' + userId}});
   }
   
   /**
@@ -96,16 +96,25 @@ export class FirebaseProvider {
     this.db.object('/products/' + itemId).update({description: newDescription});
   }
 
-  public updateProductImageURL(newImgURL: string, itemId: string) {
-    this.db.object('/products/' + itemId).update({img_url:newImgURL});
+  public updateProductImageURL(newImgURL: string, itemId: string, imgNumber: number) {
+    let imgNum = 'imgURL' + imgNumber;
+    this.db.list('/products/' + itemId + '/images/').update(imgNum, {imgURL:newImgURL});
   }
 
-  public updateProductOwner(newOwner: string, itemId: string) {
-    this.db.object('/products/' + itemId).update({owner:newOwner});
+  public removeProductImageURL(itemId: string, imgNumber: number) {
+    this.db.object('/products/' + itemId + '/images/imageURL' + imgNumber).remove();
   }
 
-  public getCurrentImageDownloadUrl() {
-    return this.imageUrl;
+  public removeAllProductImageURLs(itemId: string) {
+    this.db.object('/products/' + itemId + '/images/').remove();
+  }
+
+  public replaceAllProductImageURLs(itemId: string, imageUrls: string[]) {
+    this.db.object('/products/' + itemId + '/images/').set(imageUrls);
+  }
+
+  public updateProductOwner(newOwnerId: string, itemId: string) {
+    this.db.object('/products/' + itemId).update({ownerId:newOwnerId});
   }
 
   // Might update this so that each user has their own folder of images
@@ -142,18 +151,17 @@ export class FirebaseProvider {
       }
     }, () => {
       // Upload completed successfully, now we can get the download URL
-       this.imageUrl = uploadTask.snapshot.downloadURL;
+      //  this.imageUrl = uploadTask.snapshot.downloadURL;
        console.log('Upload is complete');
     });
   }
   
-  // NOTE: Really hard to use this with a button
+  // NOTE: Really hard to use this on other components due to async nature
+  // May not even need to use this, more likely to call getProduct() which already has a url
   public getImageUrl(imgName: string): Promise<any> {
     return this.imageProductStorageRef.child(imgName).getDownloadURL().then((url) => {
       // If request successful, stuff in here fires
-      this.imageUrl = url;
-      console.log("imgurl: " + url);
-
+      // this.imageUrl = url;
     }).catch(function(error) {
       // A full list of error codes is available at
       // https://firebase.google.com/docs/storage/web/handle-errors
