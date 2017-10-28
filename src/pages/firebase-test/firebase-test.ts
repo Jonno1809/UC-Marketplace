@@ -86,7 +86,7 @@ export class FirebaseTestPage {
     return this.productsByUser = this.fbProvider.getAllProductsFromUser(userId);
   }
 
-  //
+  // Could be useful for when putting all images in an <ion-slides> or something
   getProductImages(productId: string) {
     return this.productImages = this.fbProvider.getProductImageURLs(productId);
   }

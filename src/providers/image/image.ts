@@ -13,7 +13,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 export class ImageProvider {
 
   private imagesSrc: string[] = new Array();
-
+  private numImages: number = 0;
+  
   constructor(public http: Http, private camera: Camera) {
     console.log('Hello ImageProvider Provider');
   }
@@ -32,7 +33,7 @@ export class ImageProvider {
     this.camera.getPicture(cameraOptions)
       .then(file_uri => {
         this.imagesSrc.push(file_uri);
-        this.imagesSrc.length;
+        this.numImages = this.imagesSrc.length;
       },
       err => console.log(err));
   }
@@ -42,6 +43,6 @@ export class ImageProvider {
   }
 
   public getNumImages() {
-    return this.imagesSrc.length;
+    return this.numImages;
   }
 }
