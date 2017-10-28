@@ -22,22 +22,26 @@ export class FirebaseTestPage {
   product: FirebaseObjectObservable<any>; // Single item
   products: FirebaseListObservable<any[]>; // List of items
 
-  imgURL: string;
+  productsByUser: FirebaseListObservable<any[]>;
+  imgURL: Promise<any>;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider, public imgProvider: ImageProvider) {
     // this.getProduct('-KuObmXeYx0-zxj1pbVm');
-
   }
 
   //Runs when the view has loaded, see https://ionicframework.com/docs/api/navigation/NavController/
   ionViewDidLoad() {
     console.log('ionViewDidLoad FirebaseTestPage');
+    this.getImageFromUrl('-product-1508639560104');
   }
 
   // Runs when the page is about to enter and become the active page, see https://ionicframework.com/docs/api/navigation/NavController/ (there's heaps of these!)
   // Place anything you want to run when the page loads here (you can probably also put it in the constructor) 
   ionViewWillEnter() {
+    this.fbProvider.getImageUrl('-product-1508636165485');
     this.getProduct('-KuObmXeYx0-zxj1pbVm');
     this.getAllProducts();
+    this.getProductsByUser('Tim Allen');
   }
 
   /**
@@ -66,10 +70,17 @@ export class FirebaseTestPage {
   uploadImage() {
     let img = this.imgProvider.getImageSrc();
     this.fbProvider.uploadImage(img);
-    this.imgURL = this.fbProvider.getImageDownloadURL();
   }
 
-  getImage() {
-    this.imgURL = this.fbProvider.getImageDownloadURL();
+  getImageFromUrl(imgName: string) {
+    this.imgURL = this.fbProvider.getImageUrl(imgName);
+  }
+
+  updateProductImageUrl(newImgURL: string, itemId: string, imgNum: number) {
+    this.fbProvider.updateProductImageURL(newImgURL, itemId, 2);
+  }
+
+  getProductsByUser(userId: string){
+    return this.productsByUser = this.fbProvider.getAllProductsFromUser(userId);
   }
 }
