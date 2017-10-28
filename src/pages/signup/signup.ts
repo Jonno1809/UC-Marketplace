@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {ItemPage} from '../item/item';
 import{LoginPage} from '../login/login';
 import {User} from '../../models/user';
+import{UserDetail} from '../../models/userdetail'
 import {AngularFireAuth} from "angularfire2/auth";
 import * as firebase from 'firebase/app'; // for typings
 import { FirebaseApp } from 'angularfire2'; // for methods
@@ -24,6 +25,8 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 })
 export class SignupPage {
 user = {}as User;
+public userUID : any;
+userdetail = {} as UserDetail;
   constructor(private afAuth:AngularFireAuth,public http: Http, 
     public db: AngularFireDatabase,
     public fbe: FirebaseApp,
@@ -44,10 +47,11 @@ user = {}as User;
       console.error(e);
       }}   
     
-      addUser(user:User){
-        this.db.list('/users/').push({FirstName: user.firstname, LastName: user.lastname, Email:user.email, Phone:user.phoneno,StudentID:user.studentid,Address:user.address})}
-        
+      addUser(userdetail:UserDetail){
+       
+        this.afAuth.authState.take(1).subscribe(auth =>{
+           
+         this.db.object('/users'+auth.uid).set(this.userdetail)
+        })
     
-
-      
-        }
+        }}

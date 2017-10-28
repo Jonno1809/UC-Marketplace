@@ -34,26 +34,26 @@
     
                   <ion-item class="listcolor" >
                     <ion-label floating>Last name </ion-label>
-                    <ion-input type="text" [(ngModel)]="user.lastname"></ion-input>
+                    <ion-input type="text" [(ngModel)]="userdetail.lastname"></ion-input>
                 </ion-item>
                 <ion-item class="listcolor" >
                     <ion-label floating>First name </ion-label>
-                    <ion-input type="text" [(ngModel)]="user.firstname"></ion-input>
+                    <ion-input type="text" [(ngModel)]="userdetail.firstname"></ion-input>
                 </ion-item>
                   <ion-item class="listcolor" >
                       <ion-label  floating>Student ID </ion-label>
-                      <ion-input type="number" [(ngModel)]="user.studentid" ></ion-input>
+                      <ion-input type="text" [(ngModel)]="userdetail.studentid" ></ion-input>
                   </ion-item>
                   <ion-item class="listcolor" >
                       <ion-label floating>Address</ion-label>
-                      <ion-input type="text" [(ngModel)]="user.address" ></ion-input>
+                      <ion-input type="text" [(ngModel)]="userdetail.address" ></ion-input>
                   </ion-item>
                   <ion-item class="listcolor" >
                       <ion-label  floating>Phone number </ion-label>
-                      <ion-input type="text" [(ngModel)]="user.phoneno"></ion-input>
+                      <ion-input type="text" [(ngModel)]="userdetail.phoneno"></ion-input>
                   </ion-item>
                       </ion-list>
-                      <button ion-button (click)="signupTapped(user)" (click)= "addUser(user)" full>Sign up</button>
+                      <button ion-button (click)="signupTapped(user)" (click)= "addUser(userdetail)" full>Sign up</button>
             
         </div>
     </ion-content>
