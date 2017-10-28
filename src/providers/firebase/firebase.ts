@@ -75,11 +75,16 @@ export class FirebaseProvider {
    * @param itemDescription the description of the product
    * @param ownerID the id of the owner of the product
    */
-  public addProduct(itemName: string, itemPrice: number, itemDescription: string, ownerID: string) {
-    this.db.list('/products/').push({name: itemName,
+  public addProduct(itemName: string, itemPrice: number, itemDescription: string, imageURLs: string[], ownerID: string) {
+    let itemId = this.db.list('/products/').push({name: itemName,
       price: itemPrice,
       description: itemDescription,
-      owner: ownerID});
+      owner: ownerID}).key;
+
+    for (let i = 1; i < imageURLs.length; i++) {
+      let imgNumString = 'imageURL' + i;
+      this.db.object('/products/' + itemId + '/images/').update({[imgNumString]: imageURLs[i]});
+    }
   }
 
   /**
