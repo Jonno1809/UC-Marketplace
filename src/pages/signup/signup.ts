@@ -51,7 +51,7 @@ userdetail = {} as UserDetail;
        
         this.afAuth.authState.take(1).subscribe(auth =>{
            
-         this.db.object('/users'+auth.uid).set(this.userdetail)
+         this.db.object('/users/'+auth.uid).set(this.userdetail)
         })
     
         }}
