@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import 'firebase/storage';
+
 /*
   Generated class for the FirebaseProvider provider.
 
@@ -14,15 +15,10 @@ import 'firebase/storage';
 @Injectable()
 export class FirebaseProvider {
 
-  private productStorageRef = firebase.storage().ref('/images/products/');
-  private downloadString: string;
+  private imageProductStorageRef = firebase.storage().ref('/images/products/');
+  private imageUrl: string;
 
-  constructor(public http: Http, 
-    public db: AngularFireDatabase
-    // public storageRef:any, 
-    // public productImagesRef:any)
-  ) 
-  {
+  constructor(public http: Http, public db: AngularFireDatabase) {
     console.log('Hello FirebaseProvider Provider');
     
     firebase.database.enableLogging(function(message) {
@@ -41,7 +37,6 @@ export class FirebaseProvider {
     // this.storageRef = storage.ref();
     // this.productImagesRef = storageRef.child('Images/products');
   }
-  
   
   public getAllProducts() {
     var connectedRef = firebase.database().ref(".info/connected");
@@ -109,17 +104,20 @@ export class FirebaseProvider {
     this.db.object('/products/' + itemId).update({owner:newOwner});
   }
 
-  public getImageDownloadURL() {
-    return this.downloadString;
+  public getCurrentImageDownloadUrl() {
+    return this.imageUrl;
   }
 
-  public uploadImage(imageString: string) {
-    let uploadTask = this.productStorageRef.child('-product-'+new Date().getTime().toString()).putString(imageString, 'base64', { contentType: 'image/jpeg' });
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+  // Might update this so that each user has their own folder of images
+  public uploadImage(imageSrcBase64String: string) {
+    let uploadTask = this.imageProductStorageRef.child('-product-' + new Date().getTime().toString()).putString(imageSrcBase64String, 'base64', { contentType: 'image/jpeg' });
+    
+    return uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       function(snapshot) {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         let progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
+
         switch (uploadTask.snapshot.state) {
           case firebase.storage.TaskState.PAUSED: // or 'paused'
             console.log('Upload is paused');
@@ -129,69 +127,54 @@ export class FirebaseProvider {
             break;
         }
       }, function(error) {
-    
       // A full list of error codes is available at
       // https://firebase.google.com/docs/storage/web/handle-errors
       switch (error.stack) {
         case 'storage/unauthorized':
           // User doesn't have permission to access the object
-          break;
+          console.log("You are unauthorised to access this object.");
         case 'storage/canceled':
           // User canceled the upload
-          break;
+          console.log("Upload cancelled.");
         case 'storage/unknown':
           // Unknown error occurred, inspect error.serverResponse
-          break;
+          console.log("Unknown error.");
       }
-    }, function() {
+    }, () => {
       // Upload completed successfully, now we can get the download URL
-       this.downloadString = uploadTask.snapshot.downloadURL;
+       this.imageUrl = uploadTask.snapshot.downloadURL;
+       console.log('Upload is complete');
     });
   }
+  
+  // NOTE: Really hard to use this with a button
+  public getImageUrl(imgName: string): Promise<any> {
+    return this.imageProductStorageRef.child(imgName).getDownloadURL().then((url) => {
+      // If request successful, stuff in here fires
+      this.imageUrl = url;
+      console.log("imgurl: " + url);
 
-  /**
-   * Fetch all users (NOT TO BE USED)
-   */
-  // private getAllUsers() {
-  //   return this.db.list('/users/');
-  // }
-
-  // private getUser(userId: string) {
-  //   return this.user = this.db.object('/users/$key');
-  // }
-
-  // public addUser(firstName: string, lastName: string, email: string) {
-  //   this.db.list('/users/').push({FirstName: firstName, LastName: lastName, Email: email})
-  // }
-
-  // public uploadImage(imageString) {
-
-  //   var imageLocation:string = 'E:/Pictures/'; // Testing
-  //   var imageName:string = "hyrulian_crest.png"; // Testing
-  //   var fullImagePath = imageLocation.concat(imageName); // Testing
-  //   imageString = fullImagePath; // Testing
-
-  //   var image = new Blob()
-
-  //   let parseUpload: any; 
-
-  //   return new Promise((resolve, reject) =>
-  //   {
-  //     parseUpload = this.storageRef.putString(imageString, 'data_url');
-      
-  //           parseUpload.on('state_changed', (_snapshot) =>
-  //           {
-  //              // We could log the progress here IF necessary
-  //              //console.log('snapshot progess ' + _snapshot);
-  //           },
-  //           (_err) =>
-  //           {
-  //              reject(_err);
-  //           },
-  //           (success) =>
-  //           {
-  //              resolve(parseUpload.snapshot);
-  //           });
-  //   });
-  // }
+    }).catch(function(error) {
+      // A full list of error codes is available at
+      // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case 'storage/object_not_found':
+            // File doesn't exist
+            console.log("err 1");
+            break;
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            console.log("err 2");
+            break;
+          case 'storage/canceled':
+            // User canceled the upload
+            console.log("err 3");
+            break;
+          case 'storage/unknown':
+            // Unknown error occurred, inspect the server response
+            console.log("err unknown");
+            break;
+      }
+    });
+  }
 }
