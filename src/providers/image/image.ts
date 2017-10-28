@@ -12,7 +12,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 @Injectable()
 export class ImageProvider {
 
-  private imageSrc: string;
+  private imagesSrc: string[] = new Array();
 
   constructor(public http: Http, private camera: Camera) {
     console.log('Hello ImageProvider Provider');
@@ -30,11 +30,18 @@ export class ImageProvider {
     }
 
     this.camera.getPicture(cameraOptions)
-      .then(file_uri => this.imageSrc = file_uri,
+      .then(file_uri => {
+        this.imagesSrc.push(file_uri);
+        this.imagesSrc.length;
+      },
       err => console.log(err));
   }
 
-  public getImageSrc(): string {
-    return this.imageSrc;
+  public getImagesForUpload(): string[] {
+    return this.imagesSrc;
+  }
+
+  public getNumImages() {
+    return this.imagesSrc.length;
   }
 }

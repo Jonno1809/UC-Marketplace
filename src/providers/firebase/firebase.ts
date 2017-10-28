@@ -81,7 +81,7 @@ export class FirebaseProvider {
       description: itemDescription,
       owner: ownerID}).key;
 
-    for (let i = 1; i < imageURLs.length; i++) {
+    for (let i = 0; i < imageURLs.length; i++) {
       let imgNumString = 'imageURL' + i;
       this.db.object('/products/' + itemId + '/images/').update({[imgNumString]: imageURLs[i]});
     }

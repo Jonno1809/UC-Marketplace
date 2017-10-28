@@ -25,6 +25,8 @@ export class FirebaseTestPage {
   private productsByUser: FirebaseListObservable<any[]>;
   private productImages: FirebaseListObservable<any[]>;
 
+  private imagesForUpload: number = 0;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider, public imgProvider: ImageProvider) {
     // this.getProduct('-KuObmXeYx0-zxj1pbVm');
   }
@@ -64,11 +66,16 @@ export class FirebaseTestPage {
 
   openPhotoGallery() {
     this.imgProvider.openPhotoGallery();
+    this.imagesForUpload = this.imgProvider.getNumImages();
   }
   
-  uploadImage() {
-    let img = this.imgProvider.getImageSrc();
-    this.fbProvider.uploadImage(img);
+  uploadImages() {
+    let imgs = this.imgProvider.getImagesForUpload();
+
+    for (let i = 0; i < imgs.length; i++) {
+      this.fbProvider.uploadImage(imgs[i]);
+    }
+    this.imagesForUpload = 0;
   }
 
   updateProductImageUrl(newImgURL: string, itemId: string, imgNum: number) {
@@ -79,6 +86,7 @@ export class FirebaseTestPage {
     return this.productsByUser = this.fbProvider.getAllProductsFromUser(userId);
   }
 
+  //
   getProductImages(productId: string) {
     return this.productImages = this.fbProvider.getProductImageURLs(productId);
   }
