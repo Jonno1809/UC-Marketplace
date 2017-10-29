@@ -6,11 +6,12 @@
 -->
 <script src="lib/ngCordova/dist/ng-cordova.js"></script>
 <ion-header>
-
   <ion-navbar>
-    <ion-title>addItem</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Add Item</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -25,15 +26,15 @@
         <ion-list >
             <ion-item class="listcolor" >
                 <ion-label floating>Item Title </ion-label>
-                <ion-input></ion-input>
+                <ion-input type="text" [(ngModel)]="itemTitle"></ion-input>
             </ion-item>
             <ion-item class="listcolor" >
                 <ion-label floating>Price </ion-label>
-                <ion-input></ion-input>
+                <ion-input type="text" [(ngModel)]="itemPrice"></ion-input>
             </ion-item>
             <ion-item class="listcolor" >
                 <ion-label floating>Description of Item </ion-label>
-                <ion-input></ion-input>
+                <ion-input type="textarea" [(ngModel)]="itemDescription"></ion-input>
             </ion-item>
             
             </ion-list>
@@ -41,4 +42,11 @@
                 <button ion-button (click)="uploadItem()" full>Finish</button>
       
   </div>
+  
+  <div id="single-product-example" *ngIf="product!=null"><!--Show only if there is a product-->
+    <h1>{{ (product | async | json) }}</h1> <!--JSON seems to always display 'null' for some reason, doesn't really matter-->
+    <h1>{{ (product | async)?.owner }}</h1>
+  </div>
+  
+
 </ion-content>
