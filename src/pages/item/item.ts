@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import{AngularFireAuth} from 'angularfire2/auth';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import * as firebase from 'firebase/app';
 
 /**
  * Generated class for the ItemPage page.
@@ -12,6 +16,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-item',
   templateUrl: 'item.html',
+  providers:[AngularFireAuth],
 })
 export class ItemPage {
   
@@ -19,7 +24,9 @@ export class ItemPage {
   category: string = 'gear';
   students : any;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private afAuth:AngularFireAuth,private toast : ToastController,
+    
+    public navCtrl: NavController, public navParams: NavParams) {
     this.cards = new Array(10);
     
     this.students= [{name : 'Jonno', course:"IT"},
@@ -30,7 +37,22 @@ export class ItemPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ItemPage');
+    this.afAuth.authState.subscribe(data =>{
+if(data.email && data.uid){
+      this.toast.create({
+        message : 'Welcome to UC-Market Place,  ' + data.email,
+        
+        duration:3000
+      }).present();
+    }else{
+      this.toast.create({
+        message : 'Could not find authentication details',
+        duration:3000
+      }).present();
+    }
+    console.log(data.email);
+  }
+  );
   }
 
 }

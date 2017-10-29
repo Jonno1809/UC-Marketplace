@@ -10,6 +10,7 @@ import { SignupPage} from '../pages/signup/signup';
 import { ItemPage } from '../pages/item/item';
 import { AddItemPage } from '../pages/add-item/add-item';
 import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
+import {LogindetailPage} from '../pages/logindetail/logindetail';
 
 @Component({
   templateUrl: 'app.html'
@@ -33,6 +34,7 @@ export class MyApp {
       { title: 'Item', component: ItemPage },
       { title: 'Firebase Test', component: FirebaseTestPage },
       { title: 'Add Item', component: AddItemPage }
+      { title: 'LogindetailPage', component: ItemPage },
     ];
 
   }
