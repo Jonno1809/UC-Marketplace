@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/storage';
 
@@ -17,29 +18,18 @@ export class FirebaseProvider {
 
   private imageProductStorageRef = firebase.storage().ref('/images/products/');
 
-  constructor(public http: Http, public db: AngularFireDatabase) {
+  constructor(public http: Http, public db: AngularFireDatabase, public afAuth: AngularFireAuth) {
     console.log('Hello FirebaseProvider Provider');
     
     firebase.database.enableLogging(function(message) {
       console.log("[FIREBASE]", message);
     });
 
-    var connectedRef = firebase.database().ref(".info/connected");
-    connectedRef.on("value", function(snap) {
-      if (snap.val() === true) {
-        console.log("[FB CONNECTION VERIFICATION] connected");
-      } else {
-        console.log("[FB CONNECTION VERIFICATION] not connected");
-      }
-    });
-    
-    // this.storage = firebase.storage();
-    // this.storageRef = storage.ref();
-    // this.productImagesRef = storageRef.child('Images/products');
+    this.checkConnectionStatus();
   }
   
-  public getAllProducts() {
-    var connectedRef = firebase.database().ref(".info/connected");
+  public checkConnectionStatus() {
+    let connectedRef = firebase.database().ref(".info/connected");
     connectedRef.on("value", function(snap) {
       if (snap.val() === true) {
         console.log("[FB CONNECTION VERIFICATION] connected");
@@ -47,6 +37,9 @@ export class FirebaseProvider {
         console.log("[FB CONNECTION VERIFICATION] not connected");
       }
     });
+  }
+
+  public getAllProducts() {
     return this.db.list('/products/');
   }
   
@@ -54,6 +47,14 @@ export class FirebaseProvider {
     return this.db.list('/products/', {query: {orderByChild:'owner', equalTo: userId}});
   }
   
+  public getCurrentlySignedInUser() {
+    return this.afAuth.auth.currentUser;
+  }
+
+  public getSignedInUID() {
+    return this.getCurrentlySignedInUser().uid;
+  }
+
   /**
    * Fetches all details of a product
    * 
@@ -66,25 +67,72 @@ export class FirebaseProvider {
   public getProductImageURLs(productId: string) {
     return this.db.list('/products/'+ productId + '/images/');
   }
+  
+  public getProductOwnerId(productId: string) {
+    return this.db.object('/products/' + productId + '/owner');
+  }
 
   /**
-   * Adds a product to the products database.
+   * Add a new user to the user database.
+   * 
+   * @param userID Should be the uid from the currently signed in user (getSignedInUID())
+   * @param firstName 
+   * @param lastName 
+   * @param email 
+   * @param studentID 
+   */
+  public addUser(userID: string, firstName: string, lastName: string, email: string, studentID: string) {
+    let user = this.db.object('/users/${userID}'); // A way to have a custom ID instead of generated.
+    user.set(
+      {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        studentID: studentID
+      }
+    );
+  }
+
+  public getUser(userID: string) {
+    return this.db.object('/users/' + userID);
+  }
+
+  public updateUserFirstName(newFirstName: string, userID: string) {
+    this.db.object('/users/' + userID).update({firstName: newFirstName});
+  }
+  
+  public updateUserLastName(newLastName: string, userID: string) {
+    this.db.object('/users/' + userID).update({lastName: newLastName});
+  }
+
+  public updateUserStudentID(newStudentId: string, userID: string) {
+    this.db.object('/users/' + userID).update({studentId: newStudentId});
+  }
+
+  /**
+   * Adds a product to the products database and adds a reference to the owners record.
    * 
    * @param itemName the name of the product
    * @param itemPrice the price of the product
    * @param itemDescription the description of the product
+   * @param imageURLs an array of all image download urls for the product
    * @param ownerID the id of the owner of the product
    */
   public addProduct(itemName: string, itemPrice: number, itemDescription: string, imageURLs: string[], ownerID: string) {
-    let itemId = this.db.list('/products/').push({name: itemName,
-      price: itemPrice,
-      description: itemDescription,
-      owner: ownerID}).key;
+    let itemId = this.db.list('/products/').push(
+      { 
+        name: itemName,
+        price: itemPrice,
+        description: itemDescription,
+        owner: ownerID
+      }).key;
 
     for (let i = 0; i < imageURLs.length; i++) {
       let imgNumString = 'imageURL' + i;
       this.db.object('/products/' + itemId + '/images/').update({[imgNumString]: imageURLs[i]});
     }
+
+    this.db.object('/users/' + ownerID + '/products/').update({[itemId]: true});
   }
 
   /**
@@ -92,6 +140,8 @@ export class FirebaseProvider {
    * @param itemId the Id of the product to delete
    */
   public deleteProduct(itemId) {
+    let ownerID = this.db.object('/products/' + itemId + '/owner');
+    this.db.object('/users/' + ownerID+ 'products/${itemId}').remove();
     this.db.list('/products/' + itemId).remove();
   }
 
