@@ -24,7 +24,11 @@ export class FirebaseProvider {
       console.log("[FIREBASE]", message);
     });
 
-    var connectedRef = firebase.database().ref(".info/connected");
+    this.checkConnectionStatus();
+  }
+  
+  public checkConnectionStatus() {
+    let connectedRef = firebase.database().ref(".info/connected");
     connectedRef.on("value", function(snap) {
       if (snap.val() === true) {
         console.log("[FB CONNECTION VERIFICATION] connected");
@@ -32,21 +36,9 @@ export class FirebaseProvider {
         console.log("[FB CONNECTION VERIFICATION] not connected");
       }
     });
-    
-    // this.storage = firebase.storage();
-    // this.storageRef = storage.ref();
-    // this.productImagesRef = storageRef.child('Images/products');
   }
   
   public getAllProducts() {
-    var connectedRef = firebase.database().ref(".info/connected");
-    connectedRef.on("value", function(snap) {
-      if (snap.val() === true) {
-        console.log("[FB CONNECTION VERIFICATION] connected");
-      } else {
-        console.log("[FB CONNECTION VERIFICATION] not connected");
-      }
-    });
     return this.db.list('/products/');
   }
   
