@@ -68,23 +68,29 @@ export class FirebaseProvider {
   }
 
   /**
-   * Adds a product to the products database.
+   * Adds a product to the products database and adds a reference to the owners record.
    * 
    * @param itemName the name of the product
    * @param itemPrice the price of the product
    * @param itemDescription the description of the product
+   * @param imageURLs an array of all image download urls for the product
    * @param ownerID the id of the owner of the product
    */
   public addProduct(itemName: string, itemPrice: number, itemDescription: string, imageURLs: string[], ownerID: string) {
-    let itemId = this.db.list('/products/').push({name: itemName,
-      price: itemPrice,
-      description: itemDescription,
-      owner: ownerID}).key;
+    let itemId = this.db.list('/products/').push(
+      { 
+        name: itemName,
+        price: itemPrice,
+        description: itemDescription,
+        owner: ownerID
+      }).key;
 
     for (let i = 0; i < imageURLs.length; i++) {
       let imgNumString = 'imageURL' + i;
       this.db.object('/products/' + itemId + '/images/').update({[imgNumString]: imageURLs[i]});
     }
+
+    this.db.object('/users/' + ownerID + '/products/').update({[itemId]: true});
   }
 
   /**
