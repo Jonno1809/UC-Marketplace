@@ -67,6 +67,10 @@ export class FirebaseProvider {
   public getProductImageURLs(productId: string) {
     return this.db.list('/products/'+ productId + '/images/');
   }
+  
+  public getProductOwnerId(productId: string) {
+    return this.db.object('/products/' + productId + '/owner');
+  }
 
   /**
    * Add a new user to the user database.
