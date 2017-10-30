@@ -10,4 +10,7 @@ import { AddItemPage } from './add-item';
     IonicPageModule.forChild(AddItemPage),
   ],
 })
-export class AddItemPageModule {}
+export class AddItemPageModule {
+
+  
+}

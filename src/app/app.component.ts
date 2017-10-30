@@ -18,7 +18,7 @@ import {LogindetailPage} from '../pages/logindetail/logindetail';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = AddItemPage;
+  rootPage: any = ItemPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -33,8 +33,8 @@ export class MyApp {
       { title: 'Signup', component: SignupPage },
       { title: 'Item', component: ItemPage },
       { title: 'Firebase Test', component: FirebaseTestPage },
-      { title: 'Add Item', component: AddItemPage }
-      { title: 'LogindetailPage', component: ItemPage },
+      { title: 'Add Item', component: AddItemPage },
+      { title: 'LogindetailPage', component: ItemPage }
     ];
 
   }
