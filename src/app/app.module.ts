@@ -10,14 +10,13 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { ItemPage } from '../pages/item/item';
 import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
-import {LogindetailPage} from '../pages/logindetail/logindetail';
+import { LogindetailPage } from '../pages/logindetail/logindetail';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import 'firebase/storage';
-import * as firebase from 'firebase/app';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -69,7 +68,7 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AzureConnectionProvider,
     FirebaseProvider,
     Camera,
@@ -77,4 +76,4 @@ export const firebaseConfig = {
     AngularFireAuth
   ]
 })
-export class AppModule {}
+export class AppModule { }

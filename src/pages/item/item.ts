@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import * as firebase from 'firebase/app';
+
 
 /**
  * Generated class for the ItemPage page.
