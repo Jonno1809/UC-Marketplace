@@ -7,25 +7,38 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>My Profile</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <div ng-if="user==null">
+  <div *ngIf="user==null">
     <h1>You must be signed in to see your profile</h1>
     <button ion-button (click)="goToLogin()">Login</button>
   </div>
-  <div ng-if="user!=null">
-    <img ng-if="userImageURL!=null">
+  <div *ngIf="user!=null">
+    <ion-item *ngIf="userImageURL!=null">
+      <ion-avatar id="profilePic">
+        <img [src]="userImageURL">
+      </ion-avatar>
+    </ion-item>
+    <h1>Profile Details:</h1>
     <ion-list>
-      <ion-item>"First Name: " {{user.firstName}}</ion-item>
-      <ion-item>"Last Name: " {{user.firstName}}</ion-item>
-      <ion-item>"Email: " {{user.email}}</ion-item>
-      <ion-item>"UC Student ID: " {{user.studentID}}</ion-item>
+      <ion-item>First Name: {{(user|async)?.firstname}}</ion-item>
+      <ion-item>Last Name: {{(user|async)?.lastname}}</ion-item>
+      <ion-item>Email: {{(user|async)?.email}}</ion-item>
+      <ion-item>UC Student ID: {{(user|async)?.studentid}}</ion-item>
+    </ion-list>
+  </div>
+  <div *ngIf="userProducts!=null">
+    <h1>Products:</h1>
+    <ion-list>
+      <button ion-item *ngFor="let product of userProducts | async" (click)="goToProduct(userProducts.$key)">
+        {{ product.name }}
+      </button>
     </ion-list>
   </div>
 </ion-content>
