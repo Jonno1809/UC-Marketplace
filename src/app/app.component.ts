@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ItemPage } from '../pages/item/item';
 import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
 import { LogindetailPage } from '../pages/logindetail/logindetail';
+import { UserProfilePage } from '../pages/user-profile/user-profile'
 
 @Component({
   templateUrl: 'app.html'
@@ -22,7 +23,8 @@ export class MyApp {
     
     this.pages = [
       { title: 'Home', component: ItemPage },
-      { title: 'Firebase Test', component: FirebaseTestPage }
+      { title: 'Firebase Test', component: FirebaseTestPage },
+      { title: 'My Profile', component: UserProfilePage }
     ];
 
   }

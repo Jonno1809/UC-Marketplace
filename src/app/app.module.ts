@@ -11,6 +11,7 @@ import { SignupPage } from '../pages/signup/signup';
 import { ItemPage } from '../pages/item/item';
 import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
 import { LogindetailPage } from '../pages/logindetail/logindetail';
+import { UserProfilePage } from '../pages/user-profile/user-profile'
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
@@ -46,7 +47,8 @@ export const firebaseConfig = {
     SignupPage,
     ItemPage,
     FirebaseTestPage,
-    LogindetailPage
+    LogindetailPage,
+    UserProfilePage
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ export const firebaseConfig = {
     LoginPage,
     ItemPage,
     FirebaseTestPage,
-    LogindetailPage
+    LogindetailPage,
+    UserProfilePage
   ],
   providers: [
     StatusBar,
