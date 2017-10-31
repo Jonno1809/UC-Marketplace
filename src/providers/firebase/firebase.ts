@@ -20,17 +20,17 @@ export class FirebaseProvider {
 
   constructor(public http: Http, public db: AngularFireDatabase, public afAuth: AngularFireAuth) {
     console.log('Hello FirebaseProvider Provider');
-    
-    firebase.database.enableLogging(function(message) {
+
+    firebase.database.enableLogging(function (message) {
       console.log("[FIREBASE]", message);
     });
 
     this.checkConnectionStatus();
   }
-  
+
   public checkConnectionStatus() {
     let connectedRef = firebase.database().ref(".info/connected");
-    connectedRef.on("value", function(snap) {
+    connectedRef.on("value", function (snap) {
       if (snap.val() === true) {
         console.log("[FB CONNECTION VERIFICATION] connected");
       } else {
@@ -42,11 +42,11 @@ export class FirebaseProvider {
   public getAllProducts() {
     return this.db.list('/products/');
   }
-  
+
   public getAllProductsFromUser(userId: string) {
-    return this.db.list('/products/', {query: {orderByChild:'owner', equalTo: userId}});
+    return this.db.list('/products/', { query: { orderByChild: 'owner', equalTo: userId } });
   }
-  
+
   public getCurrentlySignedInUser() {
     return this.afAuth.auth.currentUser;
   }
@@ -69,9 +69,9 @@ export class FirebaseProvider {
   }
 
   public getProductImageURLs(productId: string) {
-    return this.db.list('/products/'+ productId + '/images/');
+    return this.db.list('/products/' + productId + '/images/');
   }
-  
+
   public getProductOwnerId(productId: string) {
     return this.db.object('/products/' + productId + '/owner');
   }
@@ -102,15 +102,15 @@ export class FirebaseProvider {
   }
 
   public updateUserFirstName(newFirstName: string, userID: string) {
-    this.db.object('/users/' + userID).update({firstName: newFirstName});
+    this.db.object('/users/' + userID).update({ firstName: newFirstName });
   }
-  
+
   public updateUserLastName(newLastName: string, userID: string) {
-    this.db.object('/users/' + userID).update({lastName: newLastName});
+    this.db.object('/users/' + userID).update({ lastName: newLastName });
   }
 
   public updateUserStudentID(newStudentId: string, userID: string) {
-    this.db.object('/users/' + userID).update({studentId: newStudentId});
+    this.db.object('/users/' + userID).update({ studentId: newStudentId });
   }
 
   /**
@@ -124,7 +124,7 @@ export class FirebaseProvider {
    */
   public addProduct(itemName: string, itemPrice: number, itemDescription: string, imageURLs: string[], ownerID: string) {
     let itemId = this.db.list('/products/').push(
-      { 
+      {
         name: itemName,
         price: itemPrice,
         description: itemDescription,
@@ -133,10 +133,10 @@ export class FirebaseProvider {
 
     for (let i = 0; i < imageURLs.length; i++) {
       let imgNumString = 'imageURL' + i;
-      this.db.object('/products/' + itemId + '/images/').update({[imgNumString]: imageURLs[i]});
+      this.db.object('/products/' + itemId + '/images/').update({ [imgNumString]: imageURLs[i] });
     }
 
-    this.db.object('/users/' + ownerID + '/products/').update({[itemId]: true});
+    this.db.object('/users/' + ownerID + '/products/').update({ [itemId]: true });
   }
 
   /**
@@ -145,7 +145,7 @@ export class FirebaseProvider {
    */
   public deleteProduct(itemId) {
     let ownerID = this.db.object('/products/' + itemId + '/owner');
-    this.db.object('/users/' + ownerID+ 'products/${itemId}').remove();
+    this.db.object('/users/' + ownerID + 'products/${itemId}').remove();
     this.db.list('/products/' + itemId).remove();
   }
 
@@ -155,16 +155,16 @@ export class FirebaseProvider {
    * @param itemId the id of the product to be updated
    */
   public updateProductName(newName: string, itemId: string) {
-    this.db.object('/products/' + itemId).update({name: newName});
+    this.db.object('/products/' + itemId).update({ name: newName });
   }
 
   public updateProductDescription(newDescription: string, itemId: string) {
-    this.db.object('/products/' + itemId).update({description: newDescription});
+    this.db.object('/products/' + itemId).update({ description: newDescription });
   }
 
   public updateProductImageURL(newImgURL: string, itemId: string, imgNum: number) {
     let imgNumString = 'imageURL' + imgNum;
-    this.db.object('/products/' + itemId + '/images/').update({[imgNumString]: newImgURL});
+    this.db.object('/products/' + itemId + '/images/').update({ [imgNumString]: newImgURL });
   }
 
   public removeProductImageURL(itemId: string, imgNumber: number) {
@@ -180,15 +180,15 @@ export class FirebaseProvider {
   }
 
   public updateProductOwner(newOwnerId: string, itemId: string) {
-    this.db.object('/products/' + itemId).update({ownerId: newOwnerId});
+    this.db.object('/products/' + itemId).update({ ownerId: newOwnerId });
   }
 
   // Might update this so that each user has their own folder of images
   public uploadImage(imageSrcBase64String: string) {
     let uploadTask = this.imageProductStorageRef.child('-product-' + new Date().getTime().toString()).putString(imageSrcBase64String, 'base64', { contentType: 'image/jpeg' });
-    
+
     return uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      function(snapshot) {
+      function (snapshot) {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         let progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
@@ -201,53 +201,53 @@ export class FirebaseProvider {
             console.log('Upload is running');
             break;
         }
-      }, function(error) {
-      // A full list of error codes is available at
-      // https://firebase.google.com/docs/storage/web/handle-errors
-      switch (error.stack) {
-        case 'storage/unauthorized':
-          // User doesn't have permission to access the object
-          console.log("You are unauthorised to access this object.");
-        case 'storage/canceled':
-          // User canceled the upload
-          console.log("Upload cancelled.");
-        case 'storage/unknown':
-          // Unknown error occurred, inspect error.serverResponse
-          console.log("Unknown error.");
-      }
-    }, () => {
-      // Upload completed successfully, now we can get the download URL
-      //  this.imageUrl = uploadTask.snapshot.downloadURL;
-       console.log('Upload is complete');
-    });
+      }, function (error) {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.stack) {
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            console.log("You are unauthorised to access this object.");
+          case 'storage/canceled':
+            // User canceled the upload
+            console.log("Upload cancelled.");
+          case 'storage/unknown':
+            // Unknown error occurred, inspect error.serverResponse
+            console.log("Unknown error.");
+        }
+      }, () => {
+        // Upload completed successfully, now we can get the download URL
+        //  this.imageUrl = uploadTask.snapshot.downloadURL;
+        console.log('Upload is complete');
+      });
   }
-  
+
   // NOTE: Really hard to use this on other components due to async nature
   // May not even need to use this, more likely to call getProduct() which already has a url
   public getImageUrl(imgName: string): Promise<any> {
     return this.imageProductStorageRef.child(imgName).getDownloadURL().then((url) => {
       // If request successful, stuff in here fires
       // this.imageUrl = url;
-    }).catch(function(error) {
+    }).catch(function (error) {
       // A full list of error codes is available at
       // https://firebase.google.com/docs/storage/web/handle-errors
-        switch (error.code) {
-          case 'storage/object_not_found':
-            // File doesn't exist
-            console.log("err 1");
-            break;
-          case 'storage/unauthorized':
-            // User doesn't have permission to access the object
-            console.log("err 2");
-            break;
-          case 'storage/canceled':
-            // User canceled the upload
-            console.log("err 3");
-            break;
-          case 'storage/unknown':
-            // Unknown error occurred, inspect the server response
-            console.log("err unknown");
-            break;
+      switch (error.code) {
+        case 'storage/object_not_found':
+          // File doesn't exist
+          console.log("err 1");
+          break;
+        case 'storage/unauthorized':
+          // User doesn't have permission to access the object
+          console.log("err 2");
+          break;
+        case 'storage/canceled':
+          // User canceled the upload
+          console.log("err 3");
+          break;
+        case 'storage/unknown':
+          // Unknown error occurred, inspect the server response
+          console.log("err unknown");
+          break;
       }
     });
   }
