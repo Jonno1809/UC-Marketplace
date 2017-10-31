@@ -14,6 +14,7 @@ import {LogindetailPage} from '../pages/logindetail/logindetail';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import 'firebase/storage';
 import * as firebase from 'firebase/app';
@@ -72,7 +73,8 @@ export const firebaseConfig = {
     AzureConnectionProvider,
     FirebaseProvider,
     Camera,
-    ImageProvider
+    ImageProvider,
+    AngularFireAuth
   ]
 })
 export class AppModule {}
