@@ -4,4 +4,5 @@ export interface UserDetail {
     // address: string;
     // phoneno: string;
     studentID: string;
+    email: string;
 }

@@ -50,8 +50,8 @@ export class SignupPage {
   }
 
   addUser(userdetail: UserDetail) {
-    this.afAuth.authState.take(1).subscribe(auth => {
-      this.db.object('/users/' + auth.uid).set(this.userdetail)
-    });
+    this.afAuth.auth.onAuthStateChanged(user => {
+      this.db.object('/users/' + user.uid).set(this.userdetail);
+    })
   }
 }

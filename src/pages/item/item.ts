@@ -35,10 +35,10 @@ export class ItemPage {
   }
 
   ionViewDidLoad() {
-    this.afAuth.authState.subscribe(data => {
-      if (data.email && data.uid) {
+    this.afAuth.auth.onAuthStateChanged(user => {
+      if (user.email && user.uid) {
         this.toast.create({
-          message: 'Welcome to UC-Market Place, ' + data.email,
+          message: 'Welcome to UC-Market Place, ' + user.email,
           duration: 3000
         }).present();
       } else {
@@ -47,7 +47,7 @@ export class ItemPage {
           duration: 3000
         }).present();
       }
-      console.log(data.email);
+      console.log(user.email);
     });
   }
 
