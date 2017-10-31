@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {HomePage} from '../home/home'
-import{SignupPage} from '../signup/signup'
-import{LogindetailPage} from '../logindetail/logindetail';
+import { HomePage } from '../home/home'
+import { SignupPage } from '../signup/signup'
+import { LogindetailPage } from '../logindetail/logindetail';
 /**
  * Generated class for the LoginPage page.
  *
@@ -25,9 +25,11 @@ export class LoginPage {
   }
   loginTapped(event) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(LogindetailPage    );}
-    signupTapped(event) {
-      // That's right, we're pushing to ourselves!
-      this.navCtrl.push(SignupPage    );}
+    this.navCtrl.push(LogindetailPage);
+  }
+  signupTapped(event) {
+    // That's right, we're pushing to ourselves!
+    this.navCtrl.push(SignupPage);
+  }
 
 }

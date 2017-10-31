@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import{AngularFireAuth} from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase/app';
@@ -16,43 +16,41 @@ import * as firebase from 'firebase/app';
 @Component({
   selector: 'page-item',
   templateUrl: 'item.html',
-  providers:[AngularFireAuth],
+  providers: [AngularFireAuth],
 })
 export class ItemPage {
-  
+
   cards: any;
   category: string = 'gear';
-  students : any;
-  
-  constructor(private afAuth:AngularFireAuth,private toast : ToastController,
-    
+  students: any;
+
+  constructor(private afAuth: AngularFireAuth, private toast: ToastController,
+
     public navCtrl: NavController, public navParams: NavParams) {
     this.cards = new Array(10);
-    
-    this.students= [{name : 'Jonno', course:"IT"},
-    {name : 'Jack', course:"Law"},
-    {name : 'Tri', course:"Software Engineering"},
-    {name : 'Stephen', course:"Business"}];
-    
+
+    this.students = [{ name: 'Jonno', course: "IT" },
+    { name: 'Jack', course: "Law" },
+    { name: 'Tri', course: "Software Engineering" },
+    { name: 'Stephen', course: "Business" }];
+
   }
 
   ionViewDidLoad() {
-    this.afAuth.authState.subscribe(data =>{
-if(data.email && data.uid){
-      this.toast.create({
-        message : 'Welcome to UC-Market Place,  ' + data.email,
-        
-        duration:3000
-      }).present();
-    }else{
-      this.toast.create({
-        message : 'Could not find authentication details',
-        duration:3000
-      }).present();
-    }
-    console.log(data.email);
-  }
-  );
+    this.afAuth.authState.subscribe(data => {
+      if (data.email && data.uid) {
+        this.toast.create({
+          message: 'Welcome to UC-Market Place, ' + data.email,
+          duration: 3000
+        }).present();
+      } else {
+        this.toast.create({
+          message: 'Could not find authentication details',
+          duration: 3000
+        }).present();
+      }
+      console.log(data.email);
+    });
   }
 
 }

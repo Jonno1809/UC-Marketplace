@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {User} from '../../models/user'
+import { User } from '../../models/user'
 import { AngularFireAuth } from 'angularfire2/auth';
-import {ItemPage} from '../item/item';
-import {SignupPage} from '../signup/signup';
+import { ItemPage } from '../item/item';
+import { SignupPage } from '../signup/signup';
 /**
  * Generated class for the LogindetailPage page.
  *
@@ -18,10 +18,10 @@ import {SignupPage} from '../signup/signup';
   providers: [AngularFireAuth],
 })
 export class LogindetailPage {
- user = {} as User;
- constructor(private afAuth: AngularFireAuth,
-  public navCtrl: NavController, public navParams: NavParams) {
-}
+  user = {} as User;
+  constructor(private afAuth: AngularFireAuth,
+    public navCtrl: NavController, public navParams: NavParams) {
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LogindetailPage');
@@ -32,7 +32,7 @@ export class LogindetailPage {
       if (result) {
         this.navCtrl.setRoot(ItemPage);
         console.log(result);
-      }  
+      }
     }
     catch (e) {
       console.error(e);
@@ -42,5 +42,6 @@ export class LogindetailPage {
   }
   signupTapped(event) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(SignupPage    );}
+    this.navCtrl.push(SignupPage);
+  }
 }
