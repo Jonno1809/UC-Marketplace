@@ -10,6 +10,7 @@ import { FirebaseApp } from 'angularfire2'; // for methods
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+
 /**
  * Generated class for the SignupPage page.
  *
@@ -31,8 +32,8 @@ export class SignupPage {
   constructor(private afAuth: AngularFireAuth, public http: Http,
     public db: AngularFireDatabase,
     public fbe: FirebaseApp,
-    public navCtrl: NavController, public navParams: NavParams) {
-  }
+    public navCtrl: NavController, 
+    public navParams: NavParams) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
@@ -51,7 +52,6 @@ export class SignupPage {
   addUser(userdetail: UserDetail) {
     this.afAuth.authState.take(1).subscribe(auth => {
       this.db.object('/users/' + auth.uid).set(this.userdetail)
-    })
-
+    });
   }
 }

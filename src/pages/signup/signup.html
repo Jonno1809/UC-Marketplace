@@ -45,6 +45,7 @@
         <ion-label floating>Student ID </ion-label>
         <ion-input type="text" [(ngModel)]="userdetail.studentid"></ion-input>
       </ion-item>
+      <!--Removed for now as our aim is privacy
       <ion-item class="listcolor">
         <ion-label floating>Address</ion-label>
         <ion-input type="text" [(ngModel)]="userdetail.address"></ion-input>
@@ -52,7 +53,7 @@
       <ion-item class="listcolor">
         <ion-label floating>Phone number </ion-label>
         <ion-input type="text" [(ngModel)]="userdetail.phoneno"></ion-input>
-      </ion-item>
+      </ion-item>-->
     </ion-list>
     <button ion-button (click)="signupTapped(user)" (click)="addUser(userdetail)" full>Sign up</button>
 

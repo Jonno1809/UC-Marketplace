@@ -55,6 +55,10 @@ export class FirebaseProvider {
     return this.getCurrentlySignedInUser().uid;
   }
 
+  public getSignedInUserPhoto() {
+    return this.getCurrentlySignedInUser().photoURL;
+  }
+
   /**
    * Fetches all details of a product
    * 
