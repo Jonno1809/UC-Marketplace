@@ -75,6 +75,15 @@ export class FirebaseProvider {
   public getProductOwnerId(productId: string) {
     return this.db.object('/products/' + productId + '/owner');
   }
+  public getProductOwnerName(productId: string) {
+    let ownerid=this.getProductOwnerId(productId);
+    return this.db.object('/products/' + ownerid + '/firstname');
+  }
+  public getProductOwnerStudentNum(productId: string) {
+    let ownerid=this.getProductOwnerId(productId);
+    return this.db.object('/products/' + ownerid + '/studentid');
+   
+  }
 
   /**
    * Add a new user to the user database.
@@ -111,6 +120,9 @@ export class FirebaseProvider {
 
   public updateUserStudentID(newStudentId: string, userID: string) {
     this.db.object('/users/' + userID).update({ studentId: newStudentId });
+  }
+  public getUserStudentID(userID: string) {
+    return this.db.object('/users/' + userID).get(studentID);
   }
 
   /**

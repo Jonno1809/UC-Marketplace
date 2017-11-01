@@ -7,7 +7,7 @@ import {ItemDetails} from '../../models/itemDetails';
 import 'rxjs/add/operator/map';
 import {AngularFireAuth} from "angularfire2/auth";
 import { ImageProvider } from '../../providers/image/image';
-
+import {LoginPage} from '../login/login';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { ItemPage } from '../item/item';
@@ -42,11 +42,22 @@ export class AddItemPage {
 
   private imagesForUpload: number = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider, public imgProvider: ImageProvider) {
+  constructor(public afAuth:AngularFireAuth, public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider, public imgProvider: ImageProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddItemPage');
+    this.afAuth.auth.onAuthStateChanged(user => {
+      if (user.email && user.uid) {
+        if(user.displayName==null){
+         var displayname:string[];
+         displayname=user.email.split("@",1);
+        this.ownerId=displayname[0];
+        }else this.ownerId=user.displayName;
+      } else {
+        this.navCtrl.push(LoginPage);
+      }
+      console.log(user.email);
+    });
   }
   
   getProduct(itemId: string) {
@@ -58,18 +69,19 @@ export class AddItemPage {
   }
   uploadItem(event) {
     //this.itemName=itemTitle;
-    this.ownerId = this.fbProvider.getSignedInUID();
     let imgs = this.imgProvider.getImagesForUpload();
-    
+    this.imageUrls="null";
         for (let i = 0; i < imgs.length; i++) {
           this.fbProvider.uploadImage(imgs[i]);
         }
         this.imagesForUpload = 0;
 
-   this.fbProvider.addProduct(this.itemTitle, this.itemPrice, this.itemDescription, this.imageUrls, this.ownerId);
+    this.fbProvider.addProduct(this.itemTitle, this.itemPrice, this.itemDescription, this.imageUrls, this.ownerId);
 
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ItemPage );
+    if(this.navCtrl.canSwipeBack()==true){
+      this.navCtrl.pop();
+    }else this.navCtrl.push(ItemPage);
   }
   
   openPhotoGallery() {
