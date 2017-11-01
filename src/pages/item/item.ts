@@ -8,6 +8,7 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { ImageProvider } from '../../providers/image/image';
 
+
 /**
  * Generated class for the ItemPage page.
  *
@@ -19,10 +20,10 @@ import { ImageProvider } from '../../providers/image/image';
 @Component({
   selector: 'page-item',
   templateUrl: 'item.html',
-  providers:[AngularFireAuth],
+  providers: [AngularFireAuth],
 })
 export class ItemPage {
-  
+
   cards: any;
   category: string = 'gear';
   students : any;
@@ -37,31 +38,29 @@ export class ItemPage {
   constructor(private afAuth:AngularFireAuth,private toast : ToastController,
     public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider, public imgProvider: ImageProvider) {
     this.cards = new Array(10);
-    
-    this.students= [{name : 'Jonno', course:"IT"},
-    {name : 'Jack', course:"Law"},
-    {name : 'Tri', course:"Software Engineering"},
-    {name : 'Stephen', course:"Business"}];
-    
+
+    this.students = [{ name: 'Jonno', course: "IT" },
+    { name: 'Jack', course: "Law" },
+    { name: 'Tri', course: "Software Engineering" },
+    { name: 'Stephen', course: "Business" }];
+
   }
 
   ionViewDidLoad() {
-    this.afAuth.authState.subscribe(data =>{
-if(data.email && data.uid){
-      this.toast.create({
-        message : 'Welcome to UC-Market Place,  ' + data.email,
-        
-        duration:3000
-      }).present();
-    }else{
-      this.toast.create({
-        message : 'Could not find authentication details',
-        duration:3000
-      }).present();
-    }
-    console.log(data.email);
-  }
-  );
+    this.afAuth.auth.onAuthStateChanged(user => {
+      if (user.email && user.uid) {
+        this.toast.create({
+          message: 'Welcome to UC-Market Place, ' + user.email,
+          duration: 3000
+        }).present();
+      } else {
+        this.toast.create({
+          message: 'Could not find authentication details',
+          duration: 3000
+        }).present();
+      }
+      console.log(user.email);
+    });
   }
 
 

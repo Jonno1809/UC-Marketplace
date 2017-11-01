@@ -13,30 +13,27 @@
 </ion-header>
 
 
-<ion-content >
+<ion-content>
   <div class="main">
-      
-      <div class="top">
-          <div class="logo">
-            <img src="assets/images/marketplace icon.png" width = "200px" alt="">
-            <img src="assets/images/title.png" width = "250px" alt="">
-          </div></div>
-     
-          
-           
-          <ion-item class = "listcolor">
-            <ion-label floating>Email Address</ion-label>
-            <ion-input type="text" [(ngModel)]="user.email"></ion-input>
-          </ion-item>
-        
-          <ion-item class = "listcolor">
-            <ion-label floating>Password</ion-label>
-            <ion-input type="password" [(ngModel)]="user.password"></ion-input>
-          </ion-item>
-        
-          <button ion-button (click)="login(user)" full>Login</button>  
-          <button ion-button (click)="signupTapped()" full >Sign up</button>
-          
-          
+    <div class="top">
+      <div class="logo">
+        <img src="assets/images/marketplace icon.png" width="200px" alt="">
+        <img src="assets/images/title.png" width="250px" alt="">
+      </div>
+    </div>
+
+    <ion-item class="listcolor">
+      <ion-label floating>Email Address</ion-label>
+      <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+    </ion-item>
+
+    <ion-item class="listcolor">
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+    </ion-item>
+
+    <button ion-button (click)="login(user)" full>Login</button>
+    <button ion-button (click)="signupTapped()" full>Sign up</button>
+
   </div>
 </ion-content>

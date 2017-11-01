@@ -3,14 +3,11 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-import { LoginPage } from '../pages/login/login';
-import { SignupPage} from '../pages/signup/signup';
 import { ItemPage } from '../pages/item/item';
 import { AddItemPage } from '../pages/add-item/add-item';
 import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
-import {LogindetailPage} from '../pages/logindetail/logindetail';
+import { LogindetailPage } from '../pages/logindetail/logindetail';
+import { UserProfilePage } from '../pages/user-profile/user-profile'
 
 @Component({
   templateUrl: 'app.html'
@@ -20,21 +17,15 @@ export class MyApp {
 
   rootPage: any = ItemPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
-
-    // used for an example of ngFor and navigation
+    
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
-      { title: 'Login', component: LoginPage },
-      { title: 'Signup', component: SignupPage },
-      { title: 'Item', component: ItemPage },
+      { title: 'Home', component: ItemPage },
       { title: 'Firebase Test', component: FirebaseTestPage },
-      { title: 'Add Item', component: AddItemPage },
-      { title: 'LogindetailPage', component: ItemPage }
+      { title: 'My Profile', component: UserProfilePage }
     ];
 
   }
