@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ItemPage } from '../pages/item/item';
+import { AddItemPage } from '../pages/add-item/add-item';
 import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
 import { LogindetailPage } from '../pages/logindetail/logindetail';
 import { UserProfilePage } from '../pages/user-profile/user-profile'
@@ -14,7 +15,7 @@ import { UserProfilePage } from '../pages/user-profile/user-profile'
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LogindetailPage;
+  rootPage: any = ItemPage;
 
   pages: Array<{ title: string, component: any }>;
 

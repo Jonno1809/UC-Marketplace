@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { AddItemPage } from '../pages/add-item/add-item';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { ItemPage } from '../pages/item/item';
@@ -45,6 +46,7 @@ export const firebaseConfig = {
     ListPage,
     LoginPage,
     SignupPage,
+    AddItemPage,
     ItemPage,
     FirebaseTestPage,
     LogindetailPage,
@@ -64,6 +66,7 @@ export const firebaseConfig = {
     SignupPage,
     LoginPage,
     ItemPage,
+    AddItemPage,
     FirebaseTestPage,
     LogindetailPage,
     UserProfilePage
@@ -78,5 +81,6 @@ export const firebaseConfig = {
     ImageProvider,
     AngularFireAuth
   ]
+  
 })
 export class AppModule { }
