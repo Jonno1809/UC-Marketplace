@@ -21,7 +21,7 @@
   <div id="product-list-example" *ngIf="products!=null">
     <div *ngFor="let item of products | async">
       <ion-card>
-          
+
               <ion-item>
                 <ion-avatar item-left>
                   <img src="https://avatars.io/facebook/joshua.morony" />
@@ -30,18 +30,18 @@
                 <h2>{{item.owner}}</h2>
                 <p>{{ item.name }}</p>
               </ion-item>
-          
+
               <img [src]="(item.images)?.imageURL1">
-          
+
               <ion-card-content>
                 {{ item.description }}
                 <br>
                 $ {{item.price}}
               </ion-card-content>
-          
+
               <ion-row>
                 <ion-col>
-                  <button ion-button icon-left clear small>
+                  <button ion-button (click)="sendEmail()"icon-left clear small>
                     <ion-icon name="mail"></ion-icon>
                     <div>Messages seller</div>
                   </button>
@@ -52,12 +52,12 @@
                     <div>Item detail</div>
                   </button>
                 </ion-col>
-                
+
               </ion-row>
-          
+
       </ion-card>
     </div>
   </div>
-      
+
 
 </ion-content>

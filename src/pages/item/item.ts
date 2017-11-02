@@ -7,6 +7,7 @@ import * as firebase from 'firebase/app';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { ImageProvider } from '../../providers/image/image';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 
 /**
@@ -35,7 +36,7 @@ export class ItemPage {
 
   private imagesForUpload: number = 0;
 
-  constructor(private afAuth:AngularFireAuth,private toast : ToastController,
+  constructor(private afAuth:AngularFireAuth,private toast : ToastController, private emailComposer: EmailComposer,
     public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider, public imgProvider: ImageProvider) {
     this.cards = new Array(10);
 
@@ -63,9 +64,20 @@ export class ItemPage {
     });
   }
 
+  sendEmail() {
+    let email = {
+      to: 'seller@testing.com',
+      cc: 'admin@uc-marketplace.com',
+      subject: 'UC Marketplace',
+      body: 'Hey mate, is this item still available?',
+      isHtml: true
+    };
+
+    this.emailComposer.open(email);
+  }
 
   // Runs when the page is about to enter and become the active page, see https://ionicframework.com/docs/api/navigation/NavController/ (there's heaps of these!)
-  // Place anything you want to run when the page loads here (you can probably also put it in the constructor) 
+  // Place anything you want to run when the page loads here (you can probably also put it in the constructor)
   ionViewWillEnter() {
     this.getProduct('-KuObmXeYx0-zxj1pbVm');
     this.getAllProducts();

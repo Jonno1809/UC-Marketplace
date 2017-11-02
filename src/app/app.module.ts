@@ -17,6 +17,7 @@ import { UserProfilePage } from '../pages/user-profile/user-profile'
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 import 'firebase/storage';
 
@@ -79,8 +80,9 @@ export const firebaseConfig = {
     FirebaseProvider,
     Camera,
     ImageProvider,
-    AngularFireAuth
+    AngularFireAuth,
+    EmailComposer
   ]
-  
+
 })
 export class AppModule { }
