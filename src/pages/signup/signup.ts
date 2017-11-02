@@ -42,23 +42,25 @@ export class SignupPage {
     console.log('ionViewDidLoad SignupPage');
   }
   async signupTapped(user: User) {
-    let emailDomain = user.email.split('@');
-    if (emailDomain[1] != 'uni.canberra.edu.au') {
-      this.validEmailDomain = false;
-      this.invalidEmailAlert();
-    } else {
-      this.validEmailDomain = true;
-      try {
-        const result = this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
-        console.log(result);
-        this.navCtrl.setRoot(LoginPage);
-      }
-      catch (e) {
-        console.error(e);
+    if (user.email != null || user.email != ''){
+      let emailDomain = user.email.split('@');
+      if (emailDomain[1] != 'uni.canberra.edu.au') {
+        this.validEmailDomain = false;
+        this.invalidEmailAlert();
+      } else {
+        this.validEmailDomain = true;
+        try {
+          const result = this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
+          console.log(result);
+          this.navCtrl.setRoot(LoginPage);
+        }
+        catch (e) {
+          console.error(e);
+        }
       }
     }
   }
-  
+
   addUser(userdetail: UserDetail) {
     this.afAuth.auth.onAuthStateChanged(user => {
       this.db.object('/users/' + user.uid).set(this.userdetail);
