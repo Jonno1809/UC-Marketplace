@@ -69,6 +69,7 @@ export class AddItemPage {
   }
   uploadItem(event) {
     //this.itemName=itemTitle;
+    this.ownerId=this.fbProvider.getSignedInUID();
     let imgs = this.imgProvider.getImagesForUpload();
     this.imageUrls="null";
         for (let i = 0; i < imgs.length; i++) {

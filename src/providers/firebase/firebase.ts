@@ -121,9 +121,7 @@ export class FirebaseProvider {
   public updateUserStudentID(newStudentId: string, userID: string) {
     this.db.object('/users/' + userID).update({ studentId: newStudentId });
   }
-  public getUserStudentID(userID: string) {
-    return this.db.object('/users/' + userID).get(studentID);
-  }
+  
 
   /**
    * Adds a product to the products database and adds a reference to the owners record.
