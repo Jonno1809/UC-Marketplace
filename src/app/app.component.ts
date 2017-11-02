@@ -25,8 +25,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: ItemPage },
       { title: 'Firebase Test', component: FirebaseTestPage },
-      { title: 'My Profile', component: UserProfilePage },
-      { title: 'Add Item', component: AddItemPage }
+      { title: 'My Profile', component: UserProfilePage }
     ];
 
   }

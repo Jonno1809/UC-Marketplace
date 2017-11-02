@@ -42,23 +42,9 @@ export class AddItemPage {
 
   private imagesForUpload: number = 0;
 
-  constructor(public afAuth:AngularFireAuth, public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider, public imgProvider: ImageProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider, public imgProvider: ImageProvider) {
   }
 
-  ionViewDidLoad() {
-    this.afAuth.auth.onAuthStateChanged(user => {
-      if (user.email && user.uid) {
-        if(user.displayName==null){
-         var displayname:string[];
-         displayname=user.email.split("@",1);
-        this.ownerId=displayname[0];
-        }else this.ownerId=user.displayName;
-      } else {
-        this.navCtrl.push(LoginPage);
-      }
-      console.log(user.email);
-    });
-  }
   
   getProduct(itemId: string) {
     return this.product = this.fbProvider.getProduct(itemId);
