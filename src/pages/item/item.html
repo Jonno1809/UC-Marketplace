@@ -17,6 +17,9 @@
     <h1>{{ (product | async | json) }}</h1> <!--JSON seems to always display 'null' for some reason, doesn't really matter-->
     <h1>{{ (product | async)?.owner }}</h1>
   </div>
+  <ion-fab bottom right>
+    <button ion-fab mini (click)="goToAddItem()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 <ion-content >
   <div id="product-list-example" *ngIf="products!=null">
     <div *ngFor="let item of products | async">
@@ -26,7 +29,7 @@
                 <ion-avatar item-left>
                   <img src="https://avatars.io/facebook/joshua.morony" />
                 </ion-avatar>
-                <!-- <h2 *ngFor="let student of students; let i = index" >User: {{i}} {{student.name}}</h2> -->
+
                 <h2>{{item.owner}}</h2>
                 <p>{{ item.name }}</p>
               </ion-item>
@@ -46,12 +49,12 @@
                     <div>Messages seller</div>
                   </button>
                 </ion-col>
-                <ion-col>
+               <!-- <ion-col>
                   <button ion-button icon-left clear small>
                     <ion-icon name="information-circle"></ion-icon>
                     <div>Item detail</div>
                   </button>
-                </ion-col>
+                </ion-col> -->
 
               </ion-row>
 

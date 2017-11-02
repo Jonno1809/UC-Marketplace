@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { LogindetailPage } from '../logindetail/logindetail';
+import { AddItemPage } from '../add-item/add-item';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 /**
@@ -44,6 +45,9 @@ export class UserProfilePage {
 
   goToLogin() {
     this.navCtrl.push(LogindetailPage);
+  }
+  goToAddItem() {
+    this.navCtrl.push(AddItemPage);
   }
 
   // goToProduct(productID) {
