@@ -15,7 +15,7 @@ import { UserProfilePage } from '../pages/user-profile/user-profile'
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = ItemPage;
+  rootPage: any = LogindetailPage;
 
   pages: Array<{ title: string, component: any }>;
 
