@@ -7,7 +7,7 @@ import * as firebase from 'firebase/app';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { ImageProvider } from '../../providers/image/image';
-
+import { AddItemPage } from '../add-item/add-item';
 
 /**
  * Generated class for the ItemPage page.
@@ -32,7 +32,8 @@ export class ItemPage {
 
   private productsByUser: FirebaseListObservable<any[]>;
   private productImages: FirebaseListObservable<any[]>;
-
+ firstname: string;
+ studentid: string;
   private imagesForUpload: number = 0;
 
   constructor(private afAuth:AngularFireAuth,private toast : ToastController,
@@ -105,4 +106,13 @@ export class ItemPage {
     return this.productImages = this.fbProvider.getProductImageURLs(productId);
   }
 
+  getFirstName(productId: string){
+    return this.fbProvider.getProductOwnerName(productId);
+  }
+  getStudentNum(productId: string){
+    return this.fbProvider.getProductOwnerStudentNum(productId);
+  }
+  goToAddItem() {
+    this.navCtrl.push(AddItemPage);
+  }
 }
