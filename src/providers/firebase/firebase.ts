@@ -12,6 +12,9 @@ import 'firebase/storage';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+/**
+ * @author Jonathan Simmons
+ */
 
 @Injectable()
 export class FirebaseProvider {
@@ -61,7 +64,7 @@ export class FirebaseProvider {
 
   /**
    * Fetches all details of a product
-   * 
+   *
    * @param itemId Id string of the product to get
    */
   public getProduct(itemId: string) {
@@ -82,17 +85,17 @@ export class FirebaseProvider {
   public getProductOwnerStudentNum(productId: string) {
     let ownerid=this.getProductOwnerId(productId);
     return this.db.object('/products/' + ownerid + '/studentid');
-   
+
   }
 
   /**
    * Add a new user to the user database.
-   * 
+   *
    * @param userID Should be the uid from the currently signed in user (getSignedInUID())
-   * @param firstName 
-   * @param lastName 
-   * @param email 
-   * @param studentID 
+   * @param firstName
+   * @param lastName
+   * @param email
+   * @param studentID
    */
   public addUser(userID: string, firstName: string, lastName: string, email: string, studentID: string) {
     let user = this.db.object('/users/${userID}'); // A way to have a custom ID instead of generated.
@@ -121,11 +124,11 @@ export class FirebaseProvider {
   public updateUserStudentID(newStudentId: string, userID: string) {
     this.db.object('/users/' + userID).update({ studentId: newStudentId });
   }
-  
+
 
   /**
    * Adds a product to the products database and adds a reference to the owners record.
-   * 
+   *
    * @param itemName the name of the product
    * @param itemPrice the price of the product
    * @param itemDescription the description of the product
@@ -150,7 +153,7 @@ export class FirebaseProvider {
   }
 
   /**
-   * 
+   *
    * @param itemId the Id of the product to delete
    */
   public deleteProduct(itemId) {
@@ -160,7 +163,7 @@ export class FirebaseProvider {
   }
 
   /**
-   * 
+   *
    * @param newName the updated name of the product
    * @param itemId the id of the product to be updated
    */
@@ -195,9 +198,10 @@ export class FirebaseProvider {
 
   // Might update this so that each user has their own folder of images
   public uploadImage(imageSrcBase64String: string) {
-    let uploadTask = this.imageProductStorageRef.child('-product-' + new Date().getTime().toString()).putString(imageSrcBase64String, 'base64', { contentType: 'image/jpeg' });
 
-    return uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+    let uploadTask = this.imageProductStorageRef.child('-product-' + new Date().getTime().toString()).putString(imageSrcBase64String, 'base64', { contentType: 'image/jpeg' });
+    let imageUrlDownload: string;
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       function (snapshot) {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         let progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100;
@@ -229,7 +233,9 @@ export class FirebaseProvider {
         // Upload completed successfully, now we can get the download URL
         //  this.imageUrl = uploadTask.snapshot.downloadURL;
         console.log('Upload is complete');
+        imageUrlDownload = uploadTask.snapshot.downloadURL;
       });
+      return uploadTask.then(res => res.downloadURL);
   }
 
   // NOTE: Really hard to use this on other components due to async nature

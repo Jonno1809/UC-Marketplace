@@ -7,7 +7,7 @@ import { ItemPage } from '../pages/item/item';
 import { AddItemPage } from '../pages/add-item/add-item';
 import { FirebaseTestPage } from '../pages/firebase-test/firebase-test';
 import { LogindetailPage } from '../pages/logindetail/logindetail';
-import { UserProfilePage } from '../pages/user-profile/user-profile'
+import { UserProfilePage } from '../pages/user-profile/user-profile';
 
 @Component({
   templateUrl: 'app.html'
@@ -21,7 +21,7 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
-    
+
     this.pages = [
       { title: 'Home', component: ItemPage },
       { title: 'Firebase Test', component: FirebaseTestPage },
