@@ -3,11 +3,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { FirebaseApp } from 'angularfire2'; // for methods
 import * as firebase from 'firebase/app'; // for typings
-import {ItemDetails} from '../../models/itemDetails';
+import { ItemDetails } from '../../models/itemDetails';
 import 'rxjs/add/operator/map';
-import {AngularFireAuth} from "angularfire2/auth";
+import { AngularFireAuth } from "angularfire2/auth";
 import { ImageProvider } from '../../providers/image/image';
-import {LoginPage} from '../login/login';
+import { LoginPage } from '../login/login';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { ItemPage } from '../item/item';
@@ -23,7 +23,7 @@ import { ItemPage } from '../item/item';
 @Component({
   selector: 'page-add-item',
   templateUrl: 'add-item.html',
-  providers:[AngularFireAuth]
+  providers: [AngularFireAuth]
 })
 export class AddItemPage {
   //itemdetails = as {} ItemDetails;
@@ -45,37 +45,37 @@ export class AddItemPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public fbProvider: FirebaseProvider, public imgProvider: ImageProvider) {
   }
 
-  
+
   getProduct(itemId: string) {
     return this.product = this.fbProvider.getProduct(itemId);
   }
-  getImage(){
+  getImage() {
     console.log(this.itemPrice);
     console.log(this.itemDescription);
   }
   uploadItem(event) {
     //this.itemName=itemTitle;
-    this.ownerId=this.fbProvider.getSignedInUID();
+    this.ownerId = this.fbProvider.getSignedInUID();
     let imgs = this.imgProvider.getImagesForUpload();
-    this.imageUrls="null";
-        for (let i = 0; i < imgs.length; i++) {
-          this.fbProvider.uploadImage(imgs[i]);
-        }
-        this.imagesForUpload = 0;
 
-    this.fbProvider.addProduct(this.itemTitle, this.itemPrice, this.itemDescription, this.imageUrls, this.ownerId);
+    for (let i = 0; i < imgs.length; i++) {
+      this.fbProvider.uploadImage(imgs[i]);
+    }
+    this.imagesForUpload = 0;
+
+    this.fbProvider.addProduct(this.itemTitle, this.itemPrice, this.itemDescription, imgs, this.ownerId);
 
     // That's right, we're pushing to ourselves!
-    if(this.navCtrl.canSwipeBack()==true){
+    if (this.navCtrl.canSwipeBack() == true) {
       this.navCtrl.pop();
-    }else this.navCtrl.push(ItemPage);
+    } else this.navCtrl.push(ItemPage);
   }
-  
+
   openPhotoGallery() {
     this.imgProvider.openPhotoGallery();
     this.imagesForUpload = this.imgProvider.getNumImages();
   }
-  
+
   uploadImages() {
     let imgs = this.imgProvider.getImagesForUpload();
 
