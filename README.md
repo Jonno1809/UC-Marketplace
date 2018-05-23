@@ -1,3 +1,6 @@
+## NOTE: This hasn't been updated in ages, probably doesn't work, and looks terrible.
+I'll update it at somepoint in the future when I feel like it. 
+
 # UC Marketplace App
 
 This app is being developed as part of our Software Engineering Practice Group Assignment. The UC Marketplace app is an cross-platform app being developed using [Ionic](https://ionicframework.com/) that allows University of Canberra students to buy, swap and sell items such as textbooks and other products.
